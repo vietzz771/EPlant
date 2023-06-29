@@ -3,10 +3,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white py-4 fixed-top">
     <div class="container">
         <div class="col-lg-3 order-lg-0 d-flex align-items-center">
-            <a class="navbar-brand" href="/Attire/">
-                <img src="assets/images/logo.png" alt="site icon" />
-            </a>
-            <span class="text-uppercase">Eplant</span>
+            <a
+            class="navbar-brand d-flex justify-content-between align-items-center order-lg-0"
+            href="/Eplant/"
+            >
+            <img src="assets/images/logo.png" alt="site icon" />
+            <span class="text-uppercase fw-lighter ms-2">Eplant</span>
+        </a>
         </div>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
             <span class="navbar-toggler-icon"></span>
@@ -14,10 +17,10 @@
         <div class="col-lg-6 collapse navbar-collapse order-lg-1" id="navMenu">
             <ul class="navbar-nav mx-auto text-center">
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="/Attire/">home</a>
+                    <a class="nav-link text-uppercase text-dark" href="/Eplant/">home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="/Attire/#collection">collection</a>
+                    <a class="nav-link text-uppercase text-dark" href="/Eplant/#collection">collection</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-uppercase text-dark" href="shop">shop</a>

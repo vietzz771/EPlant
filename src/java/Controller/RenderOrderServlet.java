@@ -66,6 +66,7 @@ public class RenderOrderServlet extends HttpServlet {
 //        processRequest(request, response);
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("account");
+        
         DAO dao = new DAO();
         List<Order> o = dao.getOrderByAccountId(a);
         List<OrderDetail> od = dao.getOrderDetailByAccountId(a);
@@ -74,9 +75,7 @@ public class RenderOrderServlet extends HttpServlet {
         request.setAttribute("orderDetail", od);
         request.setAttribute("product", p);
         request.getRequestDispatcher("myOrders.jsp").forward(request, response);
-
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *

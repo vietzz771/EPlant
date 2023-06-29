@@ -73,10 +73,6 @@
         <servlet-class>LoadProductServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CheckoutServlet</servlet-name>
-        <servlet-class>CheckoutServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UpdateServlet</servlet-name>
         <servlet-class>Controller.UpdateServlet</servlet-class>
     </servlet>
@@ -105,20 +101,28 @@
         <servlet-class>Controller.ChangePasswordServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProcessOrder</servlet-name>
-        <servlet-class>Controller.ProcessOrder</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>RenderOrderServlet</servlet-name>
-        <servlet-class>Controller.RenderOrderServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ListOrderInfo</servlet-name>
         <servlet-class>Controller.ListOrderInfo</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RenderAccount</servlet-name>
         <servlet-class>RenderAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <servlet-class>CheckoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RenderOrderServlet</servlet-name>
+        <servlet-class>Controller.RenderOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessOrder</servlet-name>
+        <servlet-class>Controller.ProcessOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BuyNowServlet</servlet-name>
+        <servlet-class>Controller.BuyNowServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -192,10 +196,6 @@
         <url-pattern>/loadproduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CheckoutServlet</servlet-name>
-        <url-pattern>/checkout</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>UpdateServlet</servlet-name>
         <url-pattern>/UpdateServlet</url-pattern>
     </servlet-mapping>
@@ -224,20 +224,28 @@
         <url-pattern>/ChangePassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProcessOrder</servlet-name>
-        <url-pattern>/ProcessOrder</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RenderOrderServlet</servlet-name>
-        <url-pattern>/RenderOrderServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ListOrderInfo</servlet-name>
         <url-pattern>/ListOrderInfo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RenderAccount</servlet-name>
         <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RenderOrderServlet</servlet-name>
+        <url-pattern>/myOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessOrder</servlet-name>
+        <url-pattern>/processOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuyNowServlet</servlet-name>
+        <url-pattern>/buy-now</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -11,7 +11,7 @@
             <div class="col-md-6 col-lg-3">
                 <a
                     class="text-uppercase text-decoration-none brand text-white"
-                    href="index.html"
+                    href="/Eplant"
                     >EPlant</a
                 >
                 <!--                        <p class="text-white text-muted mt-3">
@@ -85,7 +85,7 @@
                         <i class="fas fa-envelope"></i>
                     </span>
                     <span class="fw-light">
-                        attire.support@gmail.com
+                        eplant.support@gmail.com
                     </span>
                 </div>
                 <div

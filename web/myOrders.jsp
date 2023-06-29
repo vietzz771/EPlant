@@ -48,7 +48,6 @@
                             </c:forEach>
                         </c:if>
                     </c:forEach>
-
                     <div class="d-flex justify-content-between p-3">
                         <span class="align-self-center text-danger">Total: $ ${listO.total_price}.00</span>
                         <div class="d-flex justify-content-end p-3">

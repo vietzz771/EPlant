@@ -28,7 +28,7 @@
         </div>
         <div class="container shop-content py-4">
             <div class="py-3 sub-link d-flex">
-                <a href="/Attire/" class="px-2">Home</a>
+                <a href="/Eplant/" class="px-2">Home</a>
                 >
                 <a href="shop" class="px-2">Shop</a>
                 >
@@ -70,192 +70,32 @@
                 <div class="shop-right col-9">
                     <span class="px-2 text-show">Showing all of item(s)</span>
                     <div class="collection-list row">
-                            <c:forEach items="${listProduct}" var="listPd">
-                                <div class="col-md-6 col-lg-4 col-xl-4 p-4">
-                                    <div class="transition">
-                                        <a href="productDetail?pid=${listPd.productID}&cid=${listPd.cid}" class="a-fix">
-                                            <div class="collection-img position-relative">
-                                                <img
-                                                    src="${listPd.image}"
-                                                    class="w-100"
-                                                    />
+                        <c:forEach items="${listProduct}" var="listPd">
+                            <div class="col-md-6 col-lg-4 col-xl-4 p-4">
+                                <div class="transition">
+                                    <a href="productDetail?pid=${listPd.productID}&cid=${listPd.cid}" class="a-fix">
+                                        <div class="collection-img position-relative">
+                                            <img
+                                                src="${listPd.image}"
+                                                class="w-100"
+                                                />
+                                        </div>
+                                        <div class="text-center">
+                                            <p class="text-capitalize my-1">${listPd.name}</p>
+                                            <span class="fw-bold">$ ${listPd.price}.00</span>
+                                            <div>
+                                                <a href="add-to-cart?id=${listPd.productID}&num=1" class="text-decoration-none text-dark btn-hover">
+                                                    <button class="btn m-2 text-dark button">
+                                                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                                    </button>
+                                                </a>
                                             </div>
-                                            <div class="text-center">
-                                                <p class="text-capitalize my-1">${listPd.name}</p>
-                                                <span class="fw-bold">$ ${listPd.price}.00</span>
-                                                <div>
-                                                    <a href="add-to-cart?id=${listPd.productID}&num=1" class="text-decoration-none text-dark btn-hover">
-                                                        <button class="btn m-2 text-dark button">
-                                                            <i class="fa fa-shopping-cart"></i> Add to Cart
-                                                        </button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>    
-                            </c:forEach>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>    
+                        </c:forEach>
 
-                        <!--                        <div class="col-md-6 col-lg-4 col-xl-4 p-4">
-                                                    <div class="transition">
-                                                        <a href="#" class="a-fix">
-                                                            <div class="collection-img position-relative">
-                                                                <img
-                                                                    src="assets/images/c_formal_gray_shirt.png"
-                                                                    class="w-100"
-                                                                    />
-                                                            </div>
-                                                            <div class="text-center">
-                                                                <p class="text-capitalize my-1">gray shirt</p>
-                                                                <span class="fw-bold">$ 45.50</span>
-                                                                <div>
-                                                                    <button class="btn m-2 text-dark button">
-                                                                        <i class="fa fa-shopping-cart"></i> Add to Cart
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>    
-                                                <div class="col-md-6 col-lg-4 col-xl-4 p-4">
-                                                    <div class="transition">
-                                                        <div class="collection-img position-relative">
-                                                            <img
-                                                                src="assets/images/c_pant_girl.png"
-                                                                class="w-100"
-                                                                />
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <p class="text-capitalize my-1">gray shirt</p>
-                                                            <span class="fw-bold">$ 45.50</span>
-                                                            <div>
-                                                                <button class="btn m-2 text-dark button">
-                                                                    <i class="fa fa-shopping-cart"></i> Add to Cart
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                        
-                                                <div class="col-md-6 col-lg-4 col-xl-4 p-4">
-                                                    <div class="transition">
-                                                        <div class="collection-img position-relative">
-                                                            <img
-                                                                src="assets/images/c_polo-shirt.png"
-                                                                class="w-100"
-                                                                />
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <p class="text-capitalize my-1">gray shirt</p>
-                                                            <span class="fw-bold">$ 45.50</span>
-                                                            <div>
-                                                                <button class="btn m-2 text-dark button">
-                                                                    <i class="fa fa-shopping-cart"></i> Add to Cart
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-4 col-xl-4 p-4">
-                                                    <div class="transition">
-                                                        <div class="collection-img position-relative">
-                                                            <img
-                                                                src="assets/images/c_shirt-girl.png"
-                                                                class="w-100"
-                                                                />
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <p class="text-capitalize my-1">gray shirt</p>
-                                                            <span class="fw-bold">$ 45.50</span>
-                                                            <div>
-                                                                <button class="btn m-2 text-dark button">
-                                                                    <i class="fa fa-shopping-cart"></i> Add to Cart
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                        
-                                                <div class="col-md-6 col-lg-4 col-xl-4 p-4">
-                                                    <div class="transition">
-                                                        <div class="collection-img position-relative">
-                                                            <img
-                                                                src="assets/images/c_t-shirt_men.png"
-                                                                class="w-100"
-                                                                />
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <p class="text-capitalize my-1">gray shirt</p>
-                                                            <span class="fw-bold">$ 45.50</span>
-                                                            <div>
-                                                                <button class="btn m-2 text-dark button">
-                                                                    <i class="fa fa-shopping-cart"></i> Add to Cart
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                        
-                                                <div class="col-md-6 col-lg-4 col-xl-4 p-4">
-                                                    <div class="transition">
-                                                        <div class="collection-img position-relative">
-                                                            <img
-                                                                src="assets/images/c_tunic-shirt_girl.png"
-                                                                class="w-100"
-                                                                />
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <p class="text-capitalize my-1">gray shirt</p>
-                                                            <span class="fw-bold">$ 45.50</span>
-                                                            <div>
-                                                                <button class="btn m-2 text-dark button">
-                                                                    <i class="fa fa-shopping-cart"></i> Add to Cart
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                        
-                                                <div class="col-md-6 col-lg-4 col-xl-4 p-4">
-                                                    <div class="transition">
-                                                        <div class="collection-img position-relative">
-                                                            <img
-                                                                src="assets/images/c_undershirt.png"
-                                                                class="w-100"
-                                                                />
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <p class="text-capitalize my-1">gray shirt</p>
-                                                            <span class="fw-bold">$ 45.50</span>
-                                                            <div>
-                                                                <button class="btn m-2 text-dark button">
-                                                                    <i class="fa fa-shopping-cart"></i> Add to Cart
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                        
-                                                <div class="col-md-6 col-lg-4 col-xl-4 p-4">
-                                                    <div class="transition">
-                                                        <div class="collection-img position-relative">
-                                                            <img
-                                                                src="assets/images/c_western-shirt.png"
-                                                                class="w-100"
-                                                                />
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <p class="text-capitalize my-1">gray shirt</p>
-                                                            <span class="fw-bold">$ 45.50</span>
-                                                            <div>
-                                                                <button class="btn m-2 text-dark button">
-                                                                    <i class="fa fa-shopping-cart"></i> Add to Cart
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                        -->
                     </div>
                     <div class="d-flex justify-content-center py-4">
                         <c:set var="count" value="${count}"></c:set>

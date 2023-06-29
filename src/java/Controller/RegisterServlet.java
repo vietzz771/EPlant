@@ -33,7 +33,6 @@ public class RegisterServlet extends HttpServlet {
 
         // Set giá trị mặc định của role là "KH"
         String role = "KH";
-
         if (!password.equals(rePassword)) {
             request.setAttribute("user", user);
             request.setAttribute("full_name", full_name);

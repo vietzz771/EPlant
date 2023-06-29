@@ -63,9 +63,12 @@ public class ProcessOrder extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+
         DAO dao = new DAO();
         String id = request.getParameter("oid");
         dao.deleteOrder(id);
+        
+        
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("account");
         List<Order> o = dao.getOrderByAccountId(a);

@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
             response.addCookie(u);
             response.addCookie(p);
 
-            response.sendRedirect("/Attire/");
+            response.sendRedirect("/Eplant/");
         }
     }
 

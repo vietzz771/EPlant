@@ -79,7 +79,7 @@
                                 <p class="text-capitalize my-1">${p.name}</p>
                                 <span class="fw-bold">$ ${p.price}.00</span>
                                 <div>
-                                    <a href="shop" class="text-decoration-none text-dark btn-hover">
+                                    <a href="buy-now?id=${p.productID}&num=1" class="text-decoration-none text-dark btn-hover">
                                         <button class="btn m-2 text-dark button">
                                         <i class="fa fa-shopping-cart"></i> Buy now
                                     </button>

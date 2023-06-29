@@ -64,7 +64,7 @@ public class ProductDetailServlet extends HttpServlet {
           DAO pd = new DAO();
           CategoryName c = pd.getCategoryName(cid);
           Product p = pd.getProductById(id);
-          List<Product> list = pd.getTopProductByCID(cid);
+          List<Product> list = pd.getTopProductByCID(cid, id);
           request.setAttribute("detail", p);
           request.setAttribute("category", c);
           request.setAttribute("cid", cid);

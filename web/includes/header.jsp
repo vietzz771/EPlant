@@ -19,7 +19,7 @@
             <h1 class="text-uppercase py-2 fw-bold text-dark">
                 Green Gift
             </h1>
-            <a href="#" class="btn mt-3 text-uppercase">shop now</a>
+            <a href="shop" class="btn mt-3 text-uppercase">shop now</a>
         </div>
         <div class="text-center carousel-item justify-content-lg-start text-lg-start px-5">
             <h2 class="text-capitalize text-dark">
@@ -28,7 +28,7 @@
             <h1 class="text-uppercase py-2 fw-bold text-dark">
                 Favorite Color 
             </h1>
-            <a href="#" class="btn mt-3 text-uppercase">buy now</a>
+            <a href="shop" class="btn mt-3 text-uppercase">buy now</a>
         </div>
     </div>
 

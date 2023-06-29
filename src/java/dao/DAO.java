@@ -389,16 +389,19 @@ public class DAO {
         return null;
     }
 
-    public List<Product> getTopProductByCID(String cid) {
+    public List<Product> getTopProductByCID(String cid, String id) {
         try {
-            String query = "SELECT top 4 p.product_id, p.name, p.image, p.description, p.filter, p.category_id, o.price, o.quantity   \n"
-                    + "FROM Product p  \n"
-                    + "INNER JOIN ProductCase o  \n"
-                    + "ON p.product_id = o.product_id  \n"
-                    + "where p.category_id = ?";
+            String query = "SELECT top 4 p.product_id, p.name, p.image, p.description, p.filter, p.category_id, o.price, o.quantity\n"
+                    + "FROM Product p\n"
+                    + "INNER JOIN ProductCase o \n"
+                    + "ON p.product_id = o.product_id\n"
+                    + "where p.category_id = ?\n"
+                    + "AND p.product_id <> ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
             ps.setString(1, cid);
+            int pID = Integer.parseInt(id);
+            ps.setInt(2, pID);
             rs = ps.executeQuery();
             List<Product> list = new ArrayList<>();
             while (rs.next()) {
@@ -831,8 +834,8 @@ public class DAO {
     public static void main(String[] args) throws Exception {
 
         DAO dao = new DAO();
-        List<Account> list = dao.searchAccount("a");
-        for (Account o : list) {
+        List<Product> list = dao.getTopProductByCID("1", "2");
+        for (Product o : list) {
             System.out.println(o);
         }
 
