@@ -83,6 +83,7 @@
                                         window.location.href = 'editProfile.jsp';
                                     }
                                 </script>
+                                
 
                             </div>
                         </div>  

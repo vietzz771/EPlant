@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <!-- Banner -->
@@ -15,9 +15,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="assets/css/admin.css"/>
+        <link rel="stylesheet" href="assets/css/paging.css"/>
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <title>JSP Page</title>
-        <jsp:useBean id = "d" class = "dao.DAO" scope="request"/>
     </head>
     <body>
 
@@ -64,7 +65,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="statistic.jsp">
+                                <a class="nav-link active" href="Liststatistic">
                                     <i class="bi bi-bar-chart"></i> Thống kê doanh số
                                 </a>
                             </li>
@@ -145,37 +146,42 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${d.orderInfo}" var="order" varStatus="status">
+                                            <c:forEach items="${listA}" var="o">
                                                 <tr>
-                                                    <td>${status.index + 1}</td>
-                                                    <td>${order.customerName}</td>
-                                                    <td>${order.productName}</td>
-                                                    <td>${order.saleDate}</td>
-                                                    <td>${order.quantity}</td>
-                                                    <td>${order.unitPrice}</td>
-                                                    <td>${order.totalPrice}</td>
+                                                    <td>${o.stt}</td>
+                                                    <td>${o.customerName}</td>
+                                                    <td>${o.productName}</td>
+                                                    <td>${o.saleDate}</td>
+                                                    <td>${o.quantity}</td>
+                                                    <td>${o.unitPrice}</td>
+                                                    <td>${o.totalPrice}</td>
 
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
-                                    
-                                </div>
-                                <c:forEach begin="1" end="${endP}" var= "i">
-                                        <a href="ListOrderInfo?index=${i}">${i}</a>
-                                    </c:forEach>
-                            </div>
-                        </div>
-                    </main>
-                </div>
-
+                                 <div class="clearfix text-center">
+                <div class="hint-text ">Hiển thị <b>${tag}</b> trong tổng số <b>${totalPages}</b> mục</div>
+                <ul class="pagination justify-content-center">
+                    <c:if test="${tag>1}">
+                    <li class="page-item disabled">
+                        <a href="Liststatistic?index=${tag-1}" class="page-link">Previous</a>
+                    </li>
+                    </c:if>
+                    <c:forEach begin="1" end="${endP}" var="i">
+                        <li class="page-item ${tag == i ? 'active' : ''}">
+                            <a href="Liststatistic?index=${i}" class="page-link">${i}</a>
+                        </li>
+                    </c:forEach>
+                    <c:if test="${tag<endP}">
+                    <li class="page-item">
+                        <a href="Liststatistic?index=${tag+1}" class="page-link">Next</a>
+                    </li>
+                    </c:if>
+                </ul>
             </div>
-
-
-
-
-
-
-        </div>    
-    </body>
+        </div>
+    </div>
+                    </main>
+</body>
 </html>

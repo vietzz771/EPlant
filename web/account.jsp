@@ -59,12 +59,12 @@
                         <!-- Navigation -->
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link active" href="account">
                                     <i class="bi bi-people"></i> Quản lí tài khoản
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="statistic.jsp">
+                                <a class="nav-link" href="Liststatistic">
                                     <i class="bi bi-bar-chart"></i> Thống kê doanh số
                                 </a>
                             </li>
@@ -267,7 +267,7 @@
                     document.getElementById('addForm').style.display = 'none';
 
                     // Quay trở lại trang account
-                    window.location.href = 'account.jsp';
+                    window.location.href = 'account';
                 });
             </script>
 

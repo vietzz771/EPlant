@@ -37,7 +37,7 @@
                     <div class="card-header">Change Password</div>
                     <div class="card shadow-sm">
                         <div class="card-body pt-0">
-                            <form action="ChangePasswordServlet" method="POST">
+                            <form action="ChangePassword" method="POST">
                                 <table class="table table-bordered">
                                     <tr>
                                         <th width="30%">Old Password</th>
@@ -103,5 +103,6 @@
             });
         });
     </script>
+    
 </body>
 </html>

@@ -113,12 +113,16 @@
         <servlet-class>Controller.RenderOrderServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ListOrderInfo</servlet-name>
-        <servlet-class>Controller.ListOrderInfo</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RenderAccount</servlet-name>
         <servlet-class>RenderAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RenderStatisticServlet</servlet-name>
+        <servlet-class>RenderStatisticServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListOrderInfo</servlet-name>
+        <servlet-class>Controller.ListOrderInfo</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -238,6 +242,14 @@
     <servlet-mapping>
         <servlet-name>RenderAccount</servlet-name>
         <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RenderStatisticServlet</servlet-name>
+        <url-pattern>/statistic</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListOrderInfo</servlet-name>
+        <url-pattern>/Liststatistic</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

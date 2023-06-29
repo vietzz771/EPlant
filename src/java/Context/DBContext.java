@@ -22,7 +22,7 @@ public class DBContext {
         String dbPassword = "123";
         String port = "1433";
         String IP = "127.0.0.1";
-        String ServerName = "DESKTOP-QRGLSIH\\YUNBEN";
+        String ServerName = "ADMIN-PC\\MSSQLSERVER01";
         String DBName = "EPlant";
         String dbUrl = "jdbc:sqlserver://" + ServerName + ";databaseName=" + DBName + ";encrypt=false;trustServerCertificate=false;loginTimeout=30";
         Connection con = DriverManager.getConnection(dbUrl, dbUser, dbPassword);

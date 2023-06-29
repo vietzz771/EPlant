@@ -8,12 +8,11 @@ import Entity.OrderInfo;
 import dao.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -30,7 +29,7 @@ public class ListOrderInfo extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
        
@@ -41,8 +40,9 @@ public class ListOrderInfo extends HttpServlet {
         int index = Integer.parseInt(indexPage);
        DAO dao = new DAO ();
        int count = dao.getTotalOrderInfo();
-       int endPage = count/5;
-       if(count % 3 != 0 ) {
+       int endPage = count/8;
+       int totalPages = endPage +1;
+       if(count % 8 != 0 ) {
            endPage++ ;
        }
                List<OrderInfo> listOrder = dao.pagingOrderInfo(index);
@@ -50,8 +50,12 @@ public class ListOrderInfo extends HttpServlet {
                
        request.setAttribute("listA", listOrder);    
        request.setAttribute("endP", endPage);
+              request.setAttribute("tag", index);
+request.setAttribute("totalPages", totalPages);
+
        request.getRequestDispatcher("statistic.jsp").forward(request, response);
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

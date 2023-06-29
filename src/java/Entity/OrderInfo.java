@@ -9,6 +9,8 @@ package Entity;
  * @author DELL
  */
 public class OrderInfo {
+         private final int stt;
+
         private final String customerName;
         private final String productName;
         private final String saleDate;
@@ -16,7 +18,9 @@ public class OrderInfo {
         private final int quantity;
         private final double totalPrice;
 
-        public OrderInfo(String customerName, String productName, String saleDate, double unitPrice, int quantity, double totalPrice) {
+        public OrderInfo(int stt,String customerName, String productName, String saleDate, double unitPrice, int quantity, double totalPrice) {
+                        this.stt = stt;
+
             this.customerName = customerName;
             this.productName = productName;
             this.saleDate = saleDate;
@@ -51,10 +55,15 @@ public class OrderInfo {
             return totalPrice;
         }
 
+    public int getStt() {
+        return stt;
+    }
+
     @Override
     public String toString() {
-        return "OrderInfo{" + "customerName=" + customerName + ", productName=" + productName + ", saleDate=" + saleDate + ", unitPrice=" + unitPrice + ", quantity=" + quantity + ", totalPrice=" + totalPrice + '}';
+        return "OrderInfo{" + "stt=" + stt + ", customerName=" + customerName + ", productName=" + productName + ", saleDate=" + saleDate + ", unitPrice=" + unitPrice + ", quantity=" + quantity + ", totalPrice=" + totalPrice + '}';
     }
-        
+
+ 
     }
 

@@ -288,27 +288,42 @@ public class DAO {
 
 //=========================================================================//
 //=========================================================================//
-    public boolean changePassword(String account_id, String password) {
-        String query = "select * from Account where account_id = ?";
+  public boolean changePassword(String account_id, String oldPassword, String newPassword) {
+    String query = "SELECT * FROM Account WHERE account_id = ? AND password = ?";
+    try {
+        con = new DBContext().getConnection();
+        ps = con.prepareStatement(query);
+        ps.setString(1, account_id);
+        ps.setString(2, oldPassword);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            String sql = "UPDATE Account SET password = ? WHERE account_id = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setString(2, account_id);
+            ps.executeUpdate();
+            return true;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
         try {
-            con = new DBContext().getConnection();
-            ps = con.prepareStatement(query);
-            ps.setString(1, account_id);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                String sql = "update Account set password = ? where account_id = ?";
-                con = new DBContext().getConnection();
-                ps = con.prepareStatement(sql);
-                ps.setString(1, password);
-                ps.setString(2, account_id);
-                ps.executeUpdate();
-                return true;
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
     }
+    return false;
+}
+
 //=========================================================================//
 
     public void deleteProduct(String id) {
@@ -746,11 +761,11 @@ public class DAO {
     }
 //-----------------------------------------------------------------------------//
 
-    public List<OrderInfo> getOrderInfo() {
-        List<OrderInfo> listOrder = new ArrayList<>();
-        String query = "SELECT "
+    public List<OrderInfo> getListStatistic() {
+        List<OrderInfo> listStatistic = new ArrayList<>();
+        String query = "SELECT ROW_NUMBER() OVER (ORDER BY Account.full_name) AS stt, "
                 + "Account.full_name AS customer_name, "
-                + "Product.[name] AS product_name, "
+                + "Product.name AS product_name, "
                 + "[Order].order_date AS sale_date, "
                 + "OrderDetail.price AS unit_price, "
                 + "OrderDetail.quantity AS quantity, "
@@ -764,16 +779,18 @@ public class DAO {
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
-                listOrder.add(new OrderInfo(rs.getString(1),
+                listStatistic.add(new OrderInfo(
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getDouble(4),
-                        rs.getInt(5),
-                        rs.getDouble(6)));
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getInt(6),
+                        rs.getDouble(7)));
             }
         } catch (Exception e) {
         }
-        return listOrder;
+        return listStatistic;
     }
 
     public int getTotalOrderInfo() {
@@ -797,30 +814,32 @@ public class DAO {
     public List<OrderInfo> pagingOrderInfo(int index) {
         List<OrderInfo> listOrder = new ArrayList<>();
         try {
-            String query = "SELECT Account.full_name AS customer_name, "
-                    + "Product.name AS product_name, "
-                    + "[Order].order_date AS sale_date, "
-                    + "OrderDetail.price AS unit_price, "
-                    + "OrderDetail.quantity AS quantity, "
-                    + "(OrderDetail.price * OrderDetail.quantity) AS total_price "
-                    + "FROM [Order] "
-                    + "JOIN OrderDetail ON [Order].order_id = OrderDetail.o_id "
-                    + "JOIN Product ON OrderDetail.product_id = Product.product_id "
-                    + "JOIN Account ON [Order].account_id = Account.account_id "
-                    + "ORDER BY full_name "
-                    + "OFFSET 0 ROWS FETCH NEXT 5 ROWS ONLY";
+            String query = "SELECT ROW_NUMBER() OVER (ORDER BY Account.full_name) AS stt, "
+        + "Account.full_name AS customer_name, "
+        + "Product.name AS product_name, "
+        + "[Order].order_date AS sale_date, "
+        + "OrderDetail.price AS unit_price, "
+        + "OrderDetail.quantity AS quantity, "
+        + "(OrderDetail.price * OrderDetail.quantity) AS total_price "
+        + "FROM [Order] "
+        + "JOIN OrderDetail ON [Order].order_id = OrderDetail.o_id "
+        + "JOIN Product ON OrderDetail.product_id = Product.product_id "
+        + "JOIN Account ON [Order].account_id = Account.account_id "
+        + "ORDER BY full_name "
+        + "OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setInt(1, (index - 1) * 3); // truyn vao dau  ? dau tien 
+            ps.setInt(1, (index - 1) * 8); // truyn vao dau  ? dau tien 
             // set truoc khi Excute
             rs = ps.executeQuery();
             while (rs.next()) {
-                listOrder.add(new OrderInfo(rs.getString(1),
+                listOrder.add(new OrderInfo(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getDouble(4),
-                        rs.getInt(5),
-                        rs.getDouble(6)));
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getInt(6),
+                        rs.getDouble(7)));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -830,11 +849,11 @@ public class DAO {
 
     public static void main(String[] args) throws Exception {
 
-        DAO dao = new DAO();
-        List<Account> list = dao.searchAccount("a");
-        for (Account o : list) {
-            System.out.println(o);
-        }
+//        DAO dao = new DAO();
+//        List<OrderInfo> list = dao.pagingOrderInfo(3);
+//        for (OrderInfo o : list) {
+//            System.out.println(o);
+//        }
 
         //---------//
 //        int count = dao.getTotalOrderInfo();
