@@ -14,11 +14,9 @@
     <body>
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
-              <nav class="nav nav-borders">
-                                <a class="nav-link  ms-0" href="/Attire/" target="__blank">Trang chủ</a>
-
+            <nav class="nav nav-borders">
+                <a class="nav-link  ms-0" href="/Eplant/" target="__blank">Trang chủ</a>
                 <a class="nav-link active ms-0" href="updateProfile.jsp" target="__blank">Profile</a>
-
             </nav>
             <hr class="mt-0 mb-4">
 
@@ -47,7 +45,7 @@
                             <div class="card-body pt-0">
                                 <form action="UpdateProfileServlet" method="post">
                                     <table class="table table-bordered">
-                                       <tr>
+                                        <tr>
                                             <th width="30%">User</th>
                                             <td><input type="text" name="user" value="${sessionScope.account.user}" readonly></td>
                                         </tr>
@@ -76,8 +74,8 @@
                                             <td><input type="text" name="email" value="${sessionScope.account.email}" ></td>
                                         </tr>
                                     </table>
-                                   <a href="profile.jsp" class="btn btn-success">Back</a>
-    <button class="btn btn-success" type="submit" name="saveBtn" formaction="UpdateProfileServlet">Save</button>
+                                    <a href="profile.jsp" class="btn btn-success">Back</a>
+                                    <button class="btn btn-success" type="submit" name="saveBtn" formaction="UpdateProfileServlet">Save</button>
                                 </form>
 
                             </div>

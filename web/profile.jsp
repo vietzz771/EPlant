@@ -15,14 +15,11 @@
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
             <nav class="nav nav-borders">
-                <a class="nav-link  ms-0" href="/Attire/" target="__blank">Trang chủ</a>
-
-                <a class="nav-link active ms-0" href="updateProfile.jsp" target="__blank">Profile</a>
-
+                <a class="nav-link  ms-0" href="/Eplant/" target="__blank">Trang chủ</a>
+                <a class="nav-link active ms-0" href="#" target="__blank">Profile</a>
             </nav>
             <hr class="mt-0 mb-4">
             <%-- Kiểm tra xem đối tượng account có tồn tại trong session hay không --%>
-
             <div class="row">
                 <div class="col-xl-4">
                     <!-- Profile picture card-->

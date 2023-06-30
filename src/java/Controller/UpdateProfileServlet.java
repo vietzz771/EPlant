@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -36,7 +37,7 @@ public class UpdateProfileServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateProfileServlet</title>");            
+            out.println("<title>Servlet UpdateProfileServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UpdateProfileServlet at " + request.getContextPath() + "</h1>");
@@ -68,28 +69,26 @@ public class UpdateProfileServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
- @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    String user = request.getParameter("user");
-    String full_name = request.getParameter("full_name");
-    String phone = request.getParameter("phone");
-    String email = request.getParameter("email");
-    String address = request.getParameter("address");
-    String birthday = request.getParameter("birthday");
-    String sex = request.getParameter("sex");
-
-    // Lưu giá trị user vào session
-    DAO dao = new DAO();
-
-
-    dao.UpdateProfile(user, full_name, phone, email, address, birthday, sex);
-
-    // Chuyển hướng người dùng đến trang thành công sau khi cập nhật thông tin
-    response.sendRedirect("success.jsp");
-}
-
-
+        String user = request.getParameter("user");
+        String full_name = request.getParameter("full_name");
+        String phone = request.getParameter("phone");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String birthday = request.getParameter("birthday");
+        String sex = request.getParameter("sex");
+        // Lưu giá trị user vào session
+        DAO dao = new DAO();
+        dao.UpdateProfile(user, full_name, phone, email, address, birthday, sex);
+        Account acc = new DAO().getAccountByUser(user);
+        HttpSession session = request.getSession();
+        session.setAttribute("account", acc);
+        session.setMaxInactiveInterval(2 * 60 * 60);
+        // Chuyển hướng người dùng đến trang thành công sau khi cập nhật thông tin
+        response.sendRedirect("profile.jsp");
+    }
 
     /**
      * Returns a short description of the servlet.
@@ -100,7 +99,5 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-  
 
 }

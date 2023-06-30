@@ -104,7 +104,7 @@ public class DAO {
     }
 
     public void UpdateProfile(String user, String full_name, String phone, String email, String address, String birthday, String sex) {
-        String query = "UPDATE Account SET full_name=?, phone=?, email=?, address=?, birthday=?, sex=? WHERE user=?";
+        String query = "UPDATE Account SET full_name=?, phone=?, email=?, address=?, birthday=?, sex=? WHERE [user]=?";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareCall(query);
@@ -204,6 +204,31 @@ public class DAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Account getAccountByUser(String user) {
+        Account acc = new Account();
+        String query = "SELECT * from Account where [user] = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, user);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                acc = new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10));
+            }
+        } catch (Exception e) {
+        }
+        return acc;
     }
 
     //=====================================================================//
