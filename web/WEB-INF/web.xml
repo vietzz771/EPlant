@@ -124,6 +124,10 @@
         <servlet-name>BuyNowServlet</servlet-name>
         <servlet-class>Controller.BuyNowServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcessProductDetailServlet</servlet-name>
+        <servlet-class>Controller.ProcessProductDetailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -246,6 +250,10 @@
     <servlet-mapping>
         <servlet-name>BuyNowServlet</servlet-name>
         <url-pattern>/buy-now</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessProductDetailServlet</servlet-name>
+        <url-pattern>/process-product-detail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

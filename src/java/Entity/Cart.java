@@ -27,7 +27,7 @@ public class Cart {
         return getItemById(id).getQuantity();
     }
     
-    private Item getItemById(int id){
+    public Item getItemById(int id){
         for(Item i : items){
             if(i.getProduct().getProductID() == id){
                 return i;

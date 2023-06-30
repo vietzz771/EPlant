@@ -62,20 +62,26 @@ public class CheckoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        DAO pd = new DAO();
-        List<Product> list = pd.getListProduct();
-        Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt += o.getValue();
+        HttpSession session = request.getSession();
+        Account a = (Account) session.getAttribute("account");
+        if (a == null) {
+            response.sendRedirect("login");
+        } else {
+            DAO pd = new DAO();
+            List<Product> list = pd.getListProduct();
+            Cookie[] arr = request.getCookies();
+            String txt = "";
+            if (arr != null) {
+                for (Cookie o : arr) {
+                    if (o.getName().equals("cart")) {
+                        txt += o.getValue();
+                    }
                 }
             }
+            Cart cart = new Cart(txt, list);
+            request.setAttribute("cart", cart);
+            request.getRequestDispatcher("checkout.jsp").forward(request, response);
         }
-        Cart cart = new Cart(txt, list);
-        request.setAttribute("cart", cart);
-        request.getRequestDispatcher("checkout.jsp").forward(request, response);
     }
 
     /**
@@ -91,7 +97,7 @@ public class CheckoutServlet extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
         String orderNotes = request.getParameter("orderNotes");
-        
+
         DAO dao = new DAO();
         List<Product> list = dao.getListProduct();
         Cookie[] arr = request.getCookies();
@@ -104,7 +110,7 @@ public class CheckoutServlet extends HttpServlet {
             }
         }
         Cart cart = new Cart(txt, list);
-        
+
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("account");
         if (a == null) {

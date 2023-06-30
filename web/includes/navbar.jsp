@@ -2,14 +2,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <nav class="navbar navbar-expand-lg navbar-light bg-white py-4 fixed-top">
     <div class="container">
-        <div class="col-lg-3 order-lg-0 d-flex align-items-center">
+        <div class=" order-lg-0 d-flex align-items-center">
             <a
-            class="navbar-brand d-flex justify-content-between align-items-center order-lg-0"
-            href="/Eplant/"
-            >
-            <img src="assets/images/logo.png" alt="site icon" />
-            <span class="text-uppercase fw-lighter ms-2">Eplant</span>
-        </a>
+                class="navbar-brand d-flex justify-content-between align-items-center order-lg-0"
+                href="/Eplant/"
+                >
+                <img src="assets/images/logo.png" alt="site icon" />
+                <span class="text-uppercase fw-lighter ms-2">Eplant</span>
+            </a>
         </div>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
             <span class="navbar-toggler-icon"></span>
@@ -28,6 +28,11 @@
                 <li class="nav-item">
                     <a class="nav-link text-uppercase text-dark" href="#footer">about us</a>
                 </li>
+                <c:if test="${sessionScope.account != null}">
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase text-dark" href="/Eplant/myOrder">my order</a>
+                    </li>
+                </c:if>
             </ul>
         </div>
         <div class="col-lg-3 order-lg-2 nav-btns d-flex justify-content-end">
@@ -53,11 +58,11 @@
                         <div class="position-relative">
                             <button type="button" class="btn position-relative user-button " onclick="redirectToLink()">
                                 <i class="fa fa-user-circle"></i>
-                                 <div class="tick position-absolute">
+                                <div class="tick position-absolute">
                             </button>
                         </div>
                     </div>
-                    <a href="logout" class="btn btn-primary btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; margin-left: 50px; ">
+                    <a href="logout" class="btn btn-primary btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; margin-left: 5px; ">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Log out</span>
                     </a>

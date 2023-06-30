@@ -14,6 +14,7 @@
     <body>
         <%@ include file="/includes/start.jsp" %>
         <%@ include file="/includes/navbar.jsp" %>
+        <c:set var="o" value="${requestScope.PD}"/>
         <div class="container mt-17">
             <div class="row border-bt pb-5">
                 <div class="col-6 product-img">
@@ -21,7 +22,7 @@
                 </div>
                 <div class="col-6">
                     <div class="py-3 sub-link d-flex">
-                        <a href="/Attire/" class="px-2">Home</a>
+                        <a href="/Eplant" class="px-2">Home</a>
                         >
                         <a href="shop" class="px-2">Shop</a>
                         >
@@ -36,20 +37,29 @@
                         </div>
                         <div class="py-4 border-bt pd-text">
                             <p>${detail.description}</p>
-                            <div class="product-input d-flex mt-4">
-                                <button class="btn btn-pd">-</button>
-                                <input type="number" id="typeNumber" class="form-control" value="1" />
-                                <button class="btn btn-pd">+</button>
-                                <div class="add-btn">
-                                    <button class="btn text-dark button">
-                                        <i class="fa fa-shopping-cart"></i> Add to Cart
-                                    </button>
+                            <div class="product-input mt-4">
+<!--                                <a href="process-product-detail?num=-1&id=${detail.productID}&cid=${detail.cid}">
+                                    <button class="btn btn-pd h-100">-</button>
+                                </a>
+                                <input name="quantity" type="number" id="typeNumber" class="form-control" value="1" />
+                                <a href="process-product-detail?num=1&id=${detail.productID}&cid=${detail.cid}">
+                                    <button class="btn btn-pd h-100">+</button>
+                                </a>
+                                    <p>${t.quantity}</p>-->
+                                <div class="add-btn mx-0">
+                                    <a href="add-to-cart?id=${detail.productID}&num=1&name=pd" class="text-decoration-none text-dark btn-hover">
+                                        <button class="btn m-2 text-dark button">
+                                            <i class="fa fa-shopping-cart"></i> Add to Cart
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                             <div class="buyn-btn mt-3">
-                                <button class="btn text-dark button">
-                                    <i class="fa fa-shopping-cart"></i> Buy Now
-                                </button>
+                                <a href="buy-now?id=${detail.productID}&num=1" class="text-decoration-none text-dark btn-hover">
+                                    <button class="btn m-2 text-dark button">
+                                        <i class="fa fa-shopping-cart"></i> Buy Now
+                                    </button>
+                                </a>
                             </div>
                         </div>
                         <div class="py-3">
@@ -92,7 +102,7 @@
                                         <p class="text-capitalize my-1">${p.name}</p>
                                         <span class="fw-bold">$ ${p.price}</span>
                                         <div>
-                                            <a href="shop" class="text-decoration-none text-dark btn-hover">
+                                            <a href="add-to-cart?id=${p.productID}&num=1" class="text-decoration-none text-dark btn-hover">
                                                 <button class="btn m-2 text-dark button">
                                                     <i class="fa fa-shopping-cart"></i> Add to Cart
                                                 </button>

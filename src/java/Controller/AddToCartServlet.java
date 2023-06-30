@@ -51,6 +51,7 @@ public class AddToCartServlet extends HttpServlet {
         }
         String num = request.getParameter("num");
         String id = request.getParameter("id");
+        String name = request.getParameter("name");
         if (txt.isEmpty()) {
             txt = id + ":" + num;
         } else {
@@ -59,9 +60,13 @@ public class AddToCartServlet extends HttpServlet {
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(2 * 24 * 60 * 60);
         response.addCookie(c);
-        response.sendRedirect("shop");
-//        request.getRequestDispatcher("shop").forward(request, response);
+        if (name != null) {
+            response.sendRedirect("cart");
+        } else {
+            response.sendRedirect("shop");
+        }
 
+//        request.getRequestDispatcher("shop").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -92,7 +97,7 @@ public class AddToCartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
     }
 
     /**
