@@ -58,7 +58,7 @@ public class DeleteAccountServlet extends HttpServlet {
          String id = request.getParameter("account_id");
          DAO pd = new DAO();
          pd.deleteAccount(id);
-         response.sendRedirect("account.jsp");
+         response.sendRedirect("/Eplant/account");
     } 
 
     /** 

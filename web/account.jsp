@@ -30,7 +30,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <!-- Brand -->
-                    <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
+                    <a class="navbar-brand py-lg-2 px-lg-6 me-0" href="#">
                         <img src="https://preview.webpixels.io/web/img/logos/clever-primary.svg" alt="...">
                     </a>
                     <!-- User menu (mobile) -->
@@ -57,6 +57,9 @@
                     <!-- Collapse -->
                     <div class="collapse navbar-collapse" id="sidebarCollapse">
                         <!-- Navigation -->
+                        <c:if test="${sessionScope.account != null}">
+                            <h2 class=" text-dark text-center">Hello ${sessionScope.account.user}</h2>
+                        </c:if>
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link active" href="#">
@@ -104,7 +107,7 @@
             <!------------------------------------------------------------------------------------------------------>
 
             <!-- Main content -->
-            <div class="container">
+            <div class="container mt-3">
                 <div class="col-md-12 text-center mb-3">
                     <h2>${action.equals("search") ? "Kết quả tìm kiếm" : "Danh sách người dùng"}</h2>
                 </div>
@@ -224,6 +227,7 @@
                                         <select class="form-control" name="role" id="role">
                                             <option value="User">User</option>
                                             <option value="cService">cService</option>
+                                            <option value="Staff">Sale Staff</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -267,7 +271,7 @@
                     document.getElementById('addForm').style.display = 'none';
 
                     // Quay trở lại trang account
-                    window.location.href = 'account.jsp';
+                    window.location.href = '/Eplant/account';
                 });
             </script>
 

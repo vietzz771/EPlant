@@ -85,7 +85,7 @@ public class UpdateProfileServlet extends HttpServlet {
         Account acc = new DAO().getAccountByUser(user);
         HttpSession session = request.getSession();
         session.setAttribute("account", acc);
-        session.setMaxInactiveInterval(2 * 60 * 60);
+        session.setMaxInactiveInterval(12 * 60 * 60);
         // Chuyển hướng người dùng đến trang thành công sau khi cập nhật thông tin
         response.sendRedirect("profile.jsp");
     }

@@ -81,7 +81,7 @@ public class AddAccountServlet extends HttpServlet {
         String sex = request.getParameter("sex");
                 DAO pd = new DAO();
         pd.addAccount(user,password,full_name,phone,email, address,role,birthday,sex);
-        response.sendRedirect("account.jsp");
+        response.sendRedirect("/Eplant/account");
     }
 
     /**

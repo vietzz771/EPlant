@@ -36,7 +36,7 @@ public class UpdateAccountServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateAccountServlet</title>");            
+            out.println("<title>Servlet UpdateAccountServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UpdateAccountServlet at " + request.getContextPath() + "</h1>");
@@ -54,12 +54,12 @@ public class UpdateAccountServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          int account = Integer.parseInt(request.getParameter("account_id"));
+        int account = Integer.parseInt(request.getParameter("account_id"));
         DAO pd = new DAO();
-         Account list = pd.getAccountById(account);
+        Account list = pd.getAccountById(account);
         request.setAttribute("st", list);
         request.getRequestDispatcher("updateAccount.jsp").forward(request, response);
     }
@@ -70,7 +70,7 @@ public class UpdateAccountServlet extends HttpServlet {
         int account_id = Integer.parseInt(request.getParameter("account_id"));
         String address = request.getParameter("address");
         String full_name = request.getParameter("full_name");
-                String phone = request.getParameter("phone");
+        String phone = request.getParameter("phone");
         String sex = request.getParameter("sex");
         String email = request.getParameter("email");
         String role = request.getParameter("role");
@@ -78,11 +78,10 @@ public class UpdateAccountServlet extends HttpServlet {
         String birthday = request.getParameter("birthday");
 
         DAO pd = new DAO();
-        pd.updateAccount(account_id, full_name, role,phone,email,  address,  birthday, sex,user);
-        response.sendRedirect("account");
+        pd.updateAccount(account_id, full_name, role, phone, email, address, birthday, sex, user);
+        response.sendRedirect("/Eplant/account");
 
     }
-
 
     /**
      * Returns a short description of the servlet.

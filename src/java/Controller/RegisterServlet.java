@@ -27,12 +27,11 @@ public class RegisterServlet extends HttpServlet {
         String address = request.getParameter("address");
         String birthday = request.getParameter("birthday");
         String sex = request.getParameter("sex");
-
         String password = request.getParameter("password");
         String rePassword = request.getParameter("re-password");
 
         // Set giá trị mặc định của role là "KH"
-        String role = "KH";
+        String role = "user";
         if (!password.equals(rePassword)) {
             request.setAttribute("user", user);
             request.setAttribute("full_name", full_name);

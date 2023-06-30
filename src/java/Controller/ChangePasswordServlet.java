@@ -35,7 +35,7 @@ public class ChangePasswordServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangePasswordServlet</title>");            
+            out.println("<title>Servlet ChangePasswordServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ChangePasswordServlet at " + request.getContextPath() + "</h1>");
@@ -56,8 +56,9 @@ public class ChangePasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- request.setAttribute("MESSAGE", "");
-        request.getRequestDispatcher("changePassword.jsp").forward(request, response);    }
+        request.setAttribute("MESSAGE", "");
+        request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -68,21 +69,18 @@ public class ChangePasswordServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String account_id = request.getParameter("account_id");
         String password = request.getParameter("password");
-       
-        boolean check = new DAO().changePassword(account_id,password);
-            if (check){
-                request.setAttribute("MESSAGE", "<div class=\"alert alert-success\" role=\"alert\">Đổi mật khẩu thành công.</div>");
-                request.getRequestDispatcher("profile.jsp").forward(request, response);
-            } else {
-                request.setAttribute("MESSAGE", "<div class=\"alert alert-danger\" role=\"alert\">Có lỗi xảy ra.</div>");
-                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
-            }
+        boolean check = new DAO().changePassword(account_id, password);
+        if (check) {
+            request.setAttribute("MESSAGE", "<div class=\"alert alert-success\" role=\"alert\">Đổi mật khẩu thành công.</div>");
+            request.getRequestDispatcher("profile.jsp").forward(request, response);
+        } else {
+            request.setAttribute("MESSAGE", "<div class=\"alert alert-danger\" role=\"alert\">Có lỗi xảy ra.</div>");
+            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+        }
     }
-
-
     /**
      * Returns a short description of the servlet.
      *

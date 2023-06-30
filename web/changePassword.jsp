@@ -11,11 +11,10 @@
 <body>
     <div class="container-xl px-4 mt-4">
         <nav class="nav nav-borders">
-            <a class="nav-link  ms-0" href="/Attire/" target="_blank">Trang chủ</a>
-            <a class="nav-link active ms-0" href="updateProfile.jsp" target="_blank">Profile</a>
+            <a class="nav-link  ms-0" href="/Eplant/" >Trang chủ</a>
+            <a class="nav-link active ms-0" href="profile.jsp" >Profile</a>
         </nav>
         <hr class="mt-0 mb-4">
-        
         <div class="row">
             <div class="col-xl-4">
                 <div class="card mb-4 mb-xl-0">
@@ -37,7 +36,7 @@
                     <div class="card-header">Change Password</div>
                     <div class="card shadow-sm">
                         <div class="card-body pt-0">
-                            <form action="ChangePasswordServlet" method="POST">
+                            <form action="ChangePassword" method="POST">
                                 <table class="table table-bordered">
                                     <tr>
                                         <th width="30%">Old Password</th>
