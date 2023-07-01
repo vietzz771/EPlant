@@ -70,17 +70,20 @@ public class ChangePasswordServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String account_id = request.getParameter("account_id");
-        String password = request.getParameter("password");
-        boolean check = new DAO().changePassword(account_id, password);
+        String accountId = request.getParameter("account_id");
+        String oldPassword = request.getParameter("password");
+        String newPassword = request.getParameter("newPassword");
+
+        boolean check = new DAO().changePassword(accountId, oldPassword, newPassword);
         if (check) {
-            request.setAttribute("MESSAGE", "<div class=\"alert alert-success\" role=\"alert\">Đổi mật khẩu thành công.</div>");
+            request.setAttribute("SUCCESS_MESSAGE", "<div class=\"alert alert-success\" role=\"alert\">Đổi mật khẩu thành công.</div>");
             request.getRequestDispatcher("profile.jsp").forward(request, response);
         } else {
             request.setAttribute("MESSAGE", "<div class=\"alert alert-danger\" role=\"alert\">Có lỗi xảy ra.</div>");
             request.getRequestDispatcher("changePassword.jsp").forward(request, response);
         }
     }
+
     /**
      * Returns a short description of the servlet.
      *

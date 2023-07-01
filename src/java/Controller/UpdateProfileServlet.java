@@ -79,10 +79,10 @@ public class UpdateProfileServlet extends HttpServlet {
         String address = request.getParameter("address");
         String birthday = request.getParameter("birthday");
         String sex = request.getParameter("sex");
-        // Lưu giá trị user vào session
         DAO dao = new DAO();
         dao.UpdateProfile(user, full_name, phone, email, address, birthday, sex);
         Account acc = new DAO().getAccountByUser(user);
+        // Lưu giá trị user vào session
         HttpSession session = request.getSession();
         session.setAttribute("account", acc);
         session.setMaxInactiveInterval(12 * 60 * 60);

@@ -14,10 +14,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="assets/css/admin.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <title>JSP Page</title>
+        <title>List Product</title>
     </head>
     <body>
-
         <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
             <!-- Vertical Navbar -->
             <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical">
@@ -27,7 +26,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <!-- Brand -->
-                    <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
+                    <a class="navbar-brand py-lg-2 px-lg-6 me-0" href="#">
                         <img src="https://preview.webpixels.io/web/img/logos/clever-primary.svg" alt="...">
                     </a>
                     <!-- User menu (mobile) -->
@@ -54,44 +53,42 @@
                     <!-- Collapse -->
                     <div class="collapse navbar-collapse" id="sidebarCollapse">
                         <!-- Navigation -->
+                        <c:if test="${sessionScope.account != null}">
+                            <h2 class=" text-dark text-center">Hello ${sessionScope.account.user}</h2>
+                        </c:if>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="bi bi-house"></i> Dashboard
+                                <a class="nav-link" href="/Eplant/account">
+                                    <i class="bi bi-people"></i> Quản lí tài khoản
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">
+                                    <i class="bi bi-shop"></i> Quản lí sản phẩm
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="statistic.jsp">
+                                    <i class="bi bi-bar-chart"></i> Thống kê doanh số
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <i class="bi bi-bar-chart"></i> Analitycs
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="bi bi-chat"></i> Messages
+                                    <i class="bi bi-chat"></i> Tin nhắn
                                     <span class="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">6</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="bi bi-bookmarks"></i> Collections
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="bi bi-people"></i> Users
                                 </a>
                             </li>
                         </ul>
                         <!-- User (md) -->
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="bi bi-person-square"></i> Account
+                                <a class="nav-link" href="profile.jsp">
+                                    <i class="bi bi-person-square"></i> Thông tin cá nhân
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="bi bi-box-arrow-left"></i> Logout
+                                <a class="nav-link" href="logout">
+                                    <i class="bi bi-box-arrow-left"></i> Đăng xuất
                                 </a>
                             </li>
                         </ul>
@@ -114,7 +111,8 @@
                                             <th scope="col">Image</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Price</th>
-                                            <th scope="col"></th>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Quantity</th>
                                             <th scope></th>
                                             <th></th>
                                         </tr>
@@ -123,19 +121,22 @@
                                     <form action="add-product" method="post">
                                         <tr>
                                             <td>
+                                                <input name="img" type="text" placeholder="Enter image">
+                                            </td>
+                                            <td>
                                                 <input name="name" type="text" placeholder="Enter name">
                                             </td>
                                             <td>
-                                                <input name="price"type="number" placeholder="Enter price">
+                                                <input name="price" type="number" placeholder="Enter price">
                                             </td>
                                             <td>
-                                                <input name="category"type="number" placeholder="Enter category">
+                                                <input name="category" type="number" placeholder="Enter category">
                                             </td>
                                             <td>
-                                                <input name="des" type="text" placeholder="Enter des">
+                                                <input name="quantity" type="number" placeholder="Enter quantity">
                                             </td>
                                             <td>
-                                                <input name="img" type="text" placeholder="Enter image">
+                                                <input name="des" type="text" placeholder="Enter description">
                                             </td>
                                             <td class="text-end">
                                                 <input type="submit" value="Add Product">
@@ -146,15 +147,22 @@
                                         <tr>
                                             <td>
                                                 <img alt="..." src="${p.image}" class="avatar avatar-sm rounded-circle me-2">
-
                                             </td>
-                                            <td>
+                                            <td class= "align-middle">
                                                 ${p.name}
                                             </td>
-                                            <td>
+                                            <td class= "align-middle">
                                                 $ ${p.price}.00
                                             </td>
-                                            <td>
+                                            <td class= "align-middle">
+                                                <c:forEach items="${listCate}" var="c">
+                                                    <c:if test="${p.cid == c.cid}">
+                                                        ${c.cname}
+                                                    </c:if>
+                                                </c:forEach>    
+                                            </td>
+                                            <td class= "align-middle">
+                                                ${p.quantity}
                                             </td>
                                             <td>
                                             </td>

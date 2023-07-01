@@ -34,13 +34,21 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public Product(String name, String image,String description, int cid,  int price, int quantity) {
+        this.name = name;
+        this.image = image;
+        this.description = description;
+        this.cid = cid;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     public Product(String name, String image, int price, String description, int cid) {
         this.name = name;
         this.image = image;
         this.description = description;
         this.cid = cid;
         this.price = price;
-
     }
 
     public Product(String name, String image, int price, String description, int cid, int productID) {
@@ -119,7 +127,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "productID=" + productID + ", name=" + name + ", image=" + image + ", description=" + description + ", filter=" + filter + ", cid=" + cid + ", price =" + price + ", quantity =" +'}';
+        return "Product{" + "productID=" + productID + ", name=" + name + ", image=" + image + ", description=" + description + ", filter=" + filter + ", cid=" + cid + ", price =" + price + ", quantity =" + '}';
     }
 
 }

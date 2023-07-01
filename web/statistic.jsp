@@ -30,7 +30,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <!-- Brand -->
-                    <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
+                    <a class="navbar-brand py-lg-2  px-lg-6 me-0" href="#">
                         <img src="https://preview.webpixels.io/web/img/logos/clever-primary.svg" alt="...">
                     </a>
                     <!-- User menu (mobile) -->
@@ -57,6 +57,9 @@
                     <!-- Collapse -->
                     <div class="collapse navbar-collapse" id="sidebarCollapse">
                         <!-- Navigation -->
+                         <c:if test="${sessionScope.account != null}">
+                            <h2 class=" text-dark text-center">Hello ${sessionScope.account.user}</h2>
+                        </c:if>
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link " href="account">
@@ -64,7 +67,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="statistic.jsp">
+                                <a class="nav-link" href="product">
+                                    <i class="bi bi-shop"></i> Quản lí sản phẩm
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">
                                     <i class="bi bi-bar-chart"></i> Thống kê doanh số
                                 </a>
                             </li>
@@ -74,12 +82,6 @@
                                     <span class="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">6</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="bi bi-key-fill"></i> Đổi mật khẩu
-                                </a>
-                            </li>
-
                         </ul>
                         <!-- User (md) -->
                         <ul class="navbar-nav">
@@ -104,7 +106,7 @@
             <!------------------------------------------------------------------------------------------------------>
 
             <!-- Main content -->
-            <div class="container">
+            <div class="container mt-3">
                 <div class="col-md-12 text-center mb-3">
                     <h2>${action.equals("search") ? "Kết quả tìm kiếm" : "Bảng thống kê doanh số"}</h2>
                 </div>

@@ -54,7 +54,7 @@ public class DeleteProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 //        processRequest(request, response);
-         String id = request.getParameter("id");
+         int id = Integer.parseInt(request.getParameter("id"));
          DAO pd = new DAO();
          pd.deleteProduct(id);
          response.sendRedirect("product");

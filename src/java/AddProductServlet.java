@@ -73,10 +73,11 @@ public class AddProductServlet extends HttpServlet {
 //        processRequest(request, response);
         String name = request.getParameter("name");
         String img = request.getParameter("img");
-        String des =request.getParameter("des");
+        String des = request.getParameter("des");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
         int price = Integer.parseInt(request.getParameter("price"));
         int category = Integer.parseInt(request.getParameter("category"));
-        Product pd = new Product(name, img, price, des, category);
+        Product pd = new Product(name, img, des, category, price, quantity);
 //        goi funtion de insert
         DAO ed = new DAO();
         ed.addProduct(pd);

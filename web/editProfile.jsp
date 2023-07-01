@@ -15,8 +15,8 @@
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
             <nav class="nav nav-borders">
-                <a class="nav-link  ms-0" href="/Eplant/" target="__blank">Trang chủ</a>
-                <a class="nav-link active ms-0" href="updateProfile.jsp" target="__blank">Profile</a>
+                <a class="nav-link  ms-0" href="/Eplant/">Trang chủ</a>
+                <a class="nav-link active ms-0" href="profile.jsp">Profile</a>
             </nav>
             <hr class="mt-0 mb-4">
 

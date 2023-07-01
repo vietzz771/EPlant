@@ -4,6 +4,7 @@
  */
 
 import Entity.Account;
+import Entity.Category;
 import Entity.Product;
 import dao.DAO;
 import java.io.IOException;
@@ -61,7 +62,9 @@ public class RenderProductServlet extends HttpServlet {
 //        processRequest(request, response);
         DAO pd = new DAO();
         List<Product> list = pd.getListProduct();
+        List<Category> listCate = pd.getListCategory();
         request.setAttribute("list", list);
+        request.setAttribute("listCate", listCate);
         request.getRequestDispatcher("listProduct.jsp").forward(request, response);
     }
 

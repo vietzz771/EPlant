@@ -17,10 +17,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="assets/css/admin.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <title>JSP Page</title>
+        <title>Account</title>
     </head>
     <body>
-
         <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
             <!-- Vertical Navbar -->
             <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical">
@@ -30,9 +29,15 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <!-- Brand -->
-                    <a class="navbar-brand py-lg-2 px-lg-6 me-0" href="#">
-                        <img src="https://preview.webpixels.io/web/img/logos/clever-primary.svg" alt="...">
-                    </a>
+                    <div class="align-items-center text-center" style="margin: 0 auto">
+                        <a
+                            class="navbar-brand d-flex  align-items-center"
+                            href="/Eplant/"
+                            >
+                            <img src="assets/images/logo.png" alt="site icon" />
+                            <span class="text-uppercase fw-lighter ms-2 text-success">Eplant</span>
+                        </a>
+                    </div>
                     <!-- User menu (mobile) -->
                     <div class="navbar-user d-lg-none">
                         <!-- Dropdown -->
@@ -67,6 +72,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="/Eplant/product">
+                                    <i class="bi bi-shop"></i> Quản lí sản phẩm
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="statistic.jsp">
                                     <i class="bi bi-bar-chart"></i> Thống kê doanh số
                                 </a>
@@ -77,12 +87,6 @@
                                     <span class="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">6</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="bi bi-key-fill"></i> Đổi mật khẩu
-                                </a>
-                            </li>
-
                         </ul>
                         <!-- User (md) -->
                         <ul class="navbar-nav">

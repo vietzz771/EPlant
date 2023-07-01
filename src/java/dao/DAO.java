@@ -313,18 +313,18 @@ public class DAO {
 
 //=========================================================================//
 //=========================================================================//
-    public boolean changePassword(String account_id, String password) {
-        String query = "select * from Account where account_id = ?";
+    public boolean changePassword(String account_id, String oldPassword, String newPassword) {
+        String query = "SELECT * FROM Account WHERE account_id = ? AND password = ?";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
             ps.setString(1, account_id);
+            ps.setString(2, oldPassword);
             rs = ps.executeQuery();
             if (rs.next()) {
-                String sql = "update Account set password = ? where account_id = ?";
-                con = new DBContext().getConnection();
+                String sql = "UPDATE Account SET password = ? WHERE account_id = ?";
                 ps = con.prepareStatement(sql);
-                ps.setString(1, password);
+                ps.setString(1, newPassword);
                 ps.setString(2, account_id);
                 ps.executeUpdate();
                 return true;
@@ -334,34 +334,40 @@ public class DAO {
         }
         return false;
     }
-//=========================================================================//
+        //=========================================================================//
 
-    public void deleteProduct(String id) {
+    public void deleteProduct(int id) {
         try {
-            String query = "delete from Product \n"
-                    + "Where product_id = ?";
+            String query = "delete from ProductCase Where product_id = ?";
+            String query2 = "delete from Product Where product_id = ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-//            set gia tri 
-            ps.setString(1, id);
+            PreparedStatement ps2 = con.prepareStatement(query2);
+            ps.setInt(1, id);
+            ps2.setInt(1, id);
             ps.executeUpdate();
+            ps2.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
     }
-
-    public void editProduct(Product product) {
+    public void editProduct(Product product, int id) {
         try {
-            String query = "update Product set [name] = ?, [image] = ?, price = ?, [description] = ?, cid = ? where productID = ?";
+            String query = "update Product set [name] = ?, [image] = ?,[description] = ?, category_id = ? where product_id = ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
             ps.setString(1, product.getName());
             ps.setString(2, product.getImage());
-//            ps.setInt(3, product.getPrice());
-            ps.setString(4, product.getDescription());
-            ps.setInt(5, product.getCid());
-            ps.setInt(6, product.getProductID());
+            ps.setString(3, product.getDescription());
+            ps.setInt(4, product.getCid());
+            ps.setInt(5, id);
             ps.executeUpdate();
+            String query2 = "update ProductCase set price = ?, quantity = ? where product_id = ?";
+            PreparedStatement ps2 = con.prepareStatement(query2);
+            ps2.setInt(1, product.getPrice());
+            ps2.setInt(2, product.getQuantity());
+            ps2.setInt(3, id);
+            ps2.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
@@ -369,17 +375,22 @@ public class DAO {
 
     public void addProduct(Product product) {
         try {
-            String query = "insert into Product([name], image, price, description, cid)\n"
-                    + "Values (?,?,?,?,?);";
+            String query = "insert into Product([name], [image], [description], category_id)\n"
+                    + "Values (?,?,?,?);";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
 //            set gia tri 
             ps.setString(1, product.getName());
             ps.setString(2, product.getImage());
 //            ps.setInt(3, product.getPrice());
-            ps.setString(4, product.getDescription());
-            ps.setInt(5, product.getCid());
+            ps.setString(3, product.getDescription());
+            ps.setInt(4, product.getCid());
             ps.executeUpdate();
+            String query2 = "insert into ProductCase(price, quantity) Values (?, ?)";
+            PreparedStatement ps2 = con.prepareStatement(query2);
+            ps2.setInt(1, product.getPrice());
+            ps2.setInt(2, product.getQuantity());
+            ps2.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }

@@ -45,7 +45,7 @@ public class EditProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
         String id = request.getParameter("id");
         DAO pd = new DAO();
         Product p = pd.getProductById(id);
@@ -53,7 +53,6 @@ public class EditProductServlet extends HttpServlet {
         request.setAttribute("id", id);
         request.getRequestDispatcher("edit.jsp").forward(request, response);
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -66,17 +65,17 @@ public class EditProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
-        System.out.println(name);
         String img = request.getParameter("img");
         String des = request.getParameter("des");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
         int price = Integer.parseInt(request.getParameter("price"));
         int category = Integer.parseInt(request.getParameter("category"));
-        int id = Integer.parseInt( request.getParameter("id"));
-        Product pd = new Product(name, img, price, des, category, id);
+        Product pd = new Product(name, img, des, category, price, quantity);
 //        goi funtion de insert
         DAO ed = new DAO();
-        ed.editProduct(pd);
+        ed.editProduct(pd, id);
         response.sendRedirect("product");
     }
 
