@@ -30,7 +30,6 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String rePassword = request.getParameter("re-password");
 
-        // Set giá trị mặc định của role là "KH"
         String role = "user";
         if (!password.equals(rePassword)) {
             request.setAttribute("user", user);
@@ -41,7 +40,6 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("role", role);
             request.setAttribute("birthday", birthday);
             request.setAttribute("sex", sex);
-
             request.setAttribute("mess2", "Passwords do NOT match!");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } else {

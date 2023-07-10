@@ -20,7 +20,7 @@
                     <div class="alert">
                         <span>${mess}</span>
                     </div>
-                    <input name="username" type="text" placeholder="Username" value="${username}" required/>
+                    <input name="username" type="text" placeholder="Username" value="${username}" required maxlength="50" autofocus pattern="([^\s][A-z0-9]+)" title="Not include spaces"/>
                     <input name="password" type="password" placeholder="Password" value="${password}" required/>
                     <div class="form-check">
                         <input name="remember" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">

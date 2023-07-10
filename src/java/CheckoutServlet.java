@@ -113,14 +113,14 @@ public class CheckoutServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("account");
-        if (a == null) {
+        if (a == null) {    
             response.sendRedirect("login");
         } else {
             dao.addOrder(a, cart, orderNotes);
             Cookie c = new Cookie("cart", "");
             c.setMaxAge(0);
             response.addCookie(c);
-            response.sendRedirect("orderReceived.jsp");
+            response.sendRedirect("OrderReceived.jsp");
         }
     }
 

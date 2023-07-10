@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
 
 import dao.DAO;
 import java.io.IOException;
@@ -14,9 +13,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author DELL
+ * @author Hades
  */
-public class AddAccountServlet extends HttpServlet {
+public class UpdateStatusServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +34,10 @@ public class AddAccountServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddAccountServlet</title>");            
+            out.println("<title>Servlet UpdateStatusServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddAccountServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateStatusServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -68,19 +67,15 @@ public class AddAccountServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String user = request.getParameter("user");
-        String password = request.getParameter("password");
-        String full_name = request.getParameter("full_name");
-        String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
-        String address = request.getParameter("address");
-        String role = request.getParameter("role");
-        String birthday = request.getParameter("birthday");
-        String sex = request.getParameter("sex");
-                DAO pd = new DAO();
-        pd.addAccount(user,password,full_name,phone,email, address,role,birthday,sex);
-        response.sendRedirect("/Eplant/account");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+//        processRequest(request, response);
+        String status = request.getParameter("status");
+        String oid = request.getParameter("oid");
+        String aid = request.getParameter("aid");
+        DAO dao = new DAO();
+        dao.UpdateStatus(status, oid);
+        response.sendRedirect("/Eplant/editOrder?oid=" +oid +"&aid=" +aid);
     }
 
     /**

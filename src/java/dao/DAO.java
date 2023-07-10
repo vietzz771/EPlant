@@ -103,6 +103,19 @@ public class DAO {
         }
     }
 
+    public void UpdateStatus(String status, String oid) {
+        String query = "UPDATE [Order] SET order_status = ? WHERE order_id = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareCall(query);
+            ps.setString(1, status);
+            ps.setString(2, oid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            // Xử lý lỗi
+        }
+    }
+
     public void UpdateProfile(String user, String full_name, String phone, String email, String address, String birthday, String sex) {
         String query = "UPDATE Account SET full_name=?, phone=?, email=?, address=?, birthday=?, sex=? WHERE [user]=?";
         try {
@@ -334,7 +347,7 @@ public class DAO {
         }
         return false;
     }
-        //=========================================================================//
+    //=========================================================================//
 
     public void deleteProduct(int id) {
         try {
@@ -351,6 +364,7 @@ public class DAO {
             System.out.println("Error: " + e);
         }
     }
+
     public void editProduct(Product product, int id) {
         try {
             String query = "update Product set [name] = ?, [image] = ?,[description] = ?, category_id = ? where product_id = ?";
@@ -714,6 +728,81 @@ public class DAO {
         }
     }
 
+    public List<Order> getListOrder() {
+        try {
+            String query = "select * from [Order] order by order_id desc";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            List<Order> list = new ArrayList<>();
+            while (rs.next()) {
+                Order o = new Order(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getInt(7)
+                );
+                list.add(o);
+            }
+            return list;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return null;
+    }
+
+    public Order getOrderByOrderId(String order_id) {
+        try {
+            String query = "select * from [Order] where order_id = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, order_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Order(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getInt(7)
+                );
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return null;
+    }
+
+    public List<Order> getOrderByOrderStatus(String status) {
+        try {
+            String query = "select * from [Order]\n"
+                    + "where order_status = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, status);
+            rs = ps.executeQuery();
+            List<Order> list = new ArrayList<>();
+            while (rs.next()) {
+                Order o = new Order(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getInt(7)
+                );
+                list.add(o);
+            }
+            return list;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return null;
+    }
+
     public List<Order> getOrderByAccountId(Account a) {
         try {
             String query = "select * from [Order] where account_id = ?";
@@ -730,6 +819,33 @@ public class DAO {
                         rs.getInt(5),
                         rs.getString(6),
                         rs.getInt(7)
+                );
+                list.add(o);
+            }
+            return list;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return null;
+    }
+
+    public List<OrderDetail> getOrderDetailByOrderId(String oid) {
+        try {
+            String query = "Select d.o_id, d.product_id, d.quantity, d.price \n"
+                    + "From [Order] o\n"
+                    + "inner join [OrderDetail] d\n"
+                    + "On o.order_id = d.o_id\n"
+                    + "Where o.order_id = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, oid);
+            rs = ps.executeQuery();
+            List<OrderDetail> list = new ArrayList<>();
+            while (rs.next()) {
+                OrderDetail o = new OrderDetail(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4)
                 );
                 list.add(o);
             }

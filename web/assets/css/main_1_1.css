@@ -120,10 +120,6 @@ body {
     margin-top: 0;
     margin-bottom: 0;
 }
-
-.bg-pending{
-    background-color: #1765e3;
-}
 .w-20 {
     max-width: 20%;
 }
@@ -573,6 +569,18 @@ footer a:hover {
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
+}
+.bg-pending {
+    background-color:#5783db;
+}
+.bg-shipping {
+    background-color: #a881af;
+}
+.bg-completed {
+    background-color:  #33b249;
+}
+.bg-cancelled {
+    background-color: #DF4242;
 }
 /* media queries */
 @media (min-width: 992px) {

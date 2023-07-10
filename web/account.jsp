@@ -72,8 +72,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/Eplant/product">
+                                <a class="nav-link" href="product">
                                     <i class="bi bi-shop"></i> Quản lí sản phẩm
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="listOrder">
+                                    <i class="bi bi-box"></i> Quản lí đơn hàng
                                 </a>
                             </li>
                             <li class="nav-item">

@@ -26,9 +26,15 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <!-- Brand -->
-                    <a class="navbar-brand py-lg-2 px-lg-6 me-0" href="#">
-                        <img src="https://preview.webpixels.io/web/img/logos/clever-primary.svg" alt="...">
-                    </a>
+                    <div class="align-items-center text-center" style="margin: 0 auto">
+                        <a
+                            class="navbar-brand d-flex  align-items-center"
+                            href="/Eplant/"
+                            >
+                            <img src="assets/images/logo.png" alt="site icon" />
+                            <span class="text-uppercase fw-lighter ms-2 text-success">Eplant</span>
+                        </a>
+                    </div>
                     <!-- User menu (mobile) -->
                     <div class="navbar-user d-lg-none">
                         <!-- Dropdown -->
@@ -58,13 +64,18 @@
                         </c:if>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="/Eplant/account">
+                                <a class="nav-link" href="account">
                                     <i class="bi bi-people"></i> Quản lí tài khoản
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" href="#">
                                     <i class="bi bi-shop"></i> Quản lí sản phẩm
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="listOrder">
+                                    <i class="bi bi-box"></i> Quản lí đơn hàng
                                 </a>
                             </li>
                             <li class="nav-item">

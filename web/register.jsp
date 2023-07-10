@@ -29,18 +29,15 @@
                     <div class="alert">
                         <span>${mess2}</span>
                     </div>
-
-                    <input name="user" type="text" placeholder="User" value="${user}"  required />
-                    <input name="full_name" type="text" placeholder="Your name" value="${full_name}"required />
-                    <input name="phone" type="tel" placeholder="Phone Number" value="${phone}"required />
-
-                    <input name="email" type="email" placeholder="Email" value="${email}"required />
+                    <input name="user" type="text" placeholder="User" value="${user}"  required maxlength="50" autofocus pattern="([^\s][A-z0-9]+)" title="Not include spaces"/>
+                    <input name="full_name" type="text" placeholder="Your name" value="${full_name}" required maxlength="100"/>
+                    <input name="phone" type="tel" placeholder="Phone Number" value="${phone}" required maxlength="10" pattern="[0-9]{10}" title="Must constrain at 10 numbers" onkeyup="this.value = this.value.replace(/[^0-9]/g, '');"/>
+                    <input name="email" type="email" placeholder="Email" value="${email}" required maxlength="50" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"/>
                     <input name="address" type="text" placeholder="Address" value="${address}"required />
                     <input name="birthday" type="text" placeholder="BirthDay" value="${birthday}"required />
                     <input name="sex" type="text" placeholder="Sex" value="${sex}"required />
-
-                    <input name="password" type="password" placeholder="Password" required />
-                    <input name="re-password" type="password" placeholder="Confirm Password" required/>
+                    <input name="password" type="password" placeholder="Password" required maxlength="50" pattern="(?=.*\d)(?=.*[a-z]).{8,}" title="Must contain at least one number and at least 8 or more characters"/>
+                    <input name="re-password" type="password" placeholder="Confirm Password" required maxlength="50" pattern="(?=.*\d)(?=.*[a-z]).{8,}"/>
                     <button>Sign Up</button>
                 </form>
             </div>

@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
 
+import Entity.Account;
+import Entity.Order;
+import Entity.OrderDetail;
+import Entity.Product;
 import dao.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,12 +14,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
- * @author DELL
+ * @author Hades
  */
-public class AddAccountServlet extends HttpServlet {
+public class EditOrderAdminServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +39,10 @@ public class AddAccountServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddAccountServlet</title>");            
+            out.println("<title>Servlet EditOrderAdminServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddAccountServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditOrderAdminServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,7 +60,22 @@ public class AddAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+//        DAO dao = new DAO();
+//        request.getParameter(oid);
+//        List<Order> o = dao.getOrderByOrderId("ds");
+        String oid = request.getParameter("oid");
+        int aid = Integer.parseInt(request.getParameter("aid"));
+        DAO dao = new DAO();
+        Account a = dao.getAccountById(aid);
+        Order o = dao.getOrderByOrderId(oid);
+        List<OrderDetail> od = dao.getOrderDetailByOrderId(oid);
+        List<Product> p = dao.getListProduct();
+        request.setAttribute("order", o);
+        request.setAttribute("account", a);
+        request.setAttribute("orderDetail", od);
+        request.setAttribute("product", p);
+        request.getRequestDispatcher("orderDetail.jsp").forward(request, response);
     }
 
     /**
@@ -68,19 +87,9 @@ public class AddAccountServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String user = request.getParameter("user");
-        String password = request.getParameter("password");
-        String full_name = request.getParameter("full_name");
-        String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
-        String address = request.getParameter("address");
-        String role = request.getParameter("role");
-        String birthday = request.getParameter("birthday");
-        String sex = request.getParameter("sex");
-                DAO pd = new DAO();
-        pd.addAccount(user,password,full_name,phone,email, address,role,birthday,sex);
-        response.sendRedirect("/Eplant/account");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
     }
 
     /**

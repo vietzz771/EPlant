@@ -51,27 +51,27 @@
                                         </tr>
                                         <tr>
                                             <th width="30%">Full Name</th>
-                                            <td><input type="text" name="full_name" value="${sessionScope.account.full_name}" ></td>
+                                            <td><input type="text" name="full_name" value="${sessionScope.account.full_name}" required maxlength="100"></td>
                                         </tr>
                                         <tr>
                                             <th width="30%">Gender</th>
-                                            <td><input type="text" name="sex" value="${sessionScope.account.sex}" ></td>
+                                            <td><input type="text" name="sex" value="${sessionScope.account.sex}" required></td>
                                         </tr>
                                         <tr>
                                             <th width="30%">Birthday</th>
-                                            <td><input type="text" name="birthday" value="${sessionScope.account.birthday}" ></td>
+                                            <td><input type="text" name="birthday" value="${sessionScope.account.birthday}"required ></td>
                                         </tr>
                                         <tr>
                                             <th width="30%">Address</th>
-                                            <td><input type="text" name="address" value="${sessionScope.account.address}" ></td>
+                                            <td><input type="text" name="address" value="${sessionScope.account.address}" required></td>
                                         </tr>
                                         <tr>
                                             <th width="30%">Phone</th>
-                                            <td><input type="text" name="phone" value="${sessionScope.account.phone}" ></td>
+                                            <td><input type="text" name="phone" value="${sessionScope.account.phone}" required maxlength="10" pattern="[0-9]{10}" onkeyup="this.value = this.value.replace(/[^0-9]/g, '');" title="Must constrain at 10 numbers" ></td>
                                         </tr>
                                         <tr>
                                             <th width="30%">Email</th>
-                                            <td><input type="text" name="email" value="${sessionScope.account.email}" ></td>
+                                            <td><input type="text" name="email" value="${sessionScope.account.email}" required maxlength="50" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"></td>
                                         </tr>
                                     </table>
                                     <a href="profile.jsp" class="btn btn-success">Back</a>

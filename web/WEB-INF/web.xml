@@ -128,6 +128,22 @@
         <servlet-name>ProcessProductDetailServlet</servlet-name>
         <servlet-class>Controller.ProcessProductDetailServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListOrderAdminServlet</servlet-name>
+        <servlet-class>ListOrderAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditOrderAdminServlet</servlet-name>
+        <servlet-class>EditOrderAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateStatusServlet</servlet-name>
+        <servlet-class>UpdateStatusServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RenderOrderByStatus</servlet-name>
+        <servlet-class>RenderOrderByStatus</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -254,6 +270,22 @@
     <servlet-mapping>
         <servlet-name>ProcessProductDetailServlet</servlet-name>
         <url-pattern>/process-product-detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListOrderAdminServlet</servlet-name>
+        <url-pattern>/listOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditOrderAdminServlet</servlet-name>
+        <url-pattern>/editOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStatusServlet</servlet-name>
+        <url-pattern>/updateStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RenderOrderByStatus</servlet-name>
+        <url-pattern>/orderStatus</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

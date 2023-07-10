@@ -25,7 +25,18 @@
                 <div class="cart-border mt-5">
                     <div class="cart-title d-flex text-center justify-content-between p-3">
                         <h5 class="align-self-center">Order: #${listO.order_id}</h5>
-                        <span class="bg-pending py-2 px-4 text-white text-capitalize">${listO.order_status}</span>
+                        <c:if test="${listO.order_status == 'pending'}">
+                            <span class="bg-pending py-2 px-4 text-white text-capitalize">${listO.order_status}</span>
+                        </c:if>
+                        <c:if test="${listO.order_status == 'shipping'}">
+                            <span class="bg-shipping py-2 px-4 text-white text-capitalize">${listO.order_status}</span>
+                        </c:if>
+                        <c:if test="${listO.order_status == 'completed'}">
+                            <span class="bg-completed py-2 px-4 text-white text-capitalize">${listO.order_status}</span>
+                        </c:if>
+                        <c:if test="${listO.order_status == 'cancelled'}">
+                            <span class="bg-cancelled py-2 px-4 text-white text-capitalize">${listO.order_status}</span>
+                        </c:if>
                     </div>
                     <c:forEach items="${orderDetail}" var="listOD">
                         <c:if test="${listOD.o_id == listO.order_id}">
@@ -50,12 +61,12 @@
                     </c:forEach>
                     <div class="d-flex justify-content-between p-3">
                         <span class="align-self-center text-danger">Total: $ ${listO.total_price}.00</span>
-                        <div class="d-flex justify-content-end p-3">
-                            <div class="mx-5">
-                                <a href="#" class="cart-btn">
-                                    <button class="p-2 px-4">Order Tracking</button>
-                                </a>
-                            </div>
+                        <div class="d-flex justify-content-end">
+                            <!--                            <div class="mx-5">
+                                                            <a href="#" class="cart-btn">
+                                                                <button class="p-2 px-4">Order Tracking</button>
+                                                            </a>
+                                                        </div>-->
                             <div>
                                 <a href="processOrder?oid=${listO.order_id}" class="cart-btn">
                                     <button class="p-2 px-4">Cancel Order</button>

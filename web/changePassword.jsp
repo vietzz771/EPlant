@@ -42,7 +42,7 @@
                                         <th width="30%">Old Password</th>
                                         <td>
                                             <div class="input-group">
-                                                <input type="password" name="password" class="form-control" placeholder="Please enter your old password">
+                                                <input type="password" name="password" class="form-control" placeholder="Please enter your old password" required >
                                                 <button class="btn btn-outline-secondary toggle-password" type="button">
                                                     <i class="bi bi-eye-slash"></i>
                                                 </button>
@@ -53,7 +53,7 @@
                                         <th width="30%">New Password</th>
                                         <td>
                                             <div class="input-group">
-                                                <input type="password" name="newPassword" class="form-control" placeholder="Please enter your new password">
+                                                <input type="password" name="newPassword" class="form-control" placeholder="Please enter your new password" required maxlength="50" pattern="(?=.*\d)(?=.*[a-z]).{8,}" title="Must contain at least one number and at least 8 or more characters">
                                                 <button class="btn btn-outline-secondary toggle-password" type="button">
                                                     <i class="bi bi-eye-slash"></i>
                                                 </button>
