@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="assets/css/admin.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <title>List Product</title>
+        <title>Product Management</title>
     </head>
     <body>
         <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
@@ -65,27 +65,27 @@
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="account">
-                                    <i class="bi bi-people"></i> Quản lí tài khoản
+                                    <i class="bi bi-people"></i> Account Management
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
-                                    <i class="bi bi-shop"></i> Quản lí sản phẩm
+                                <a class="nav-link active" href="product">
+                                    <i class="bi bi-shop"></i> Product Management
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link " href="listOrder">
-                                    <i class="bi bi-box"></i> Quản lí đơn hàng
+                                    <i class="bi bi-box"></i> Order Management
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="statistic.jsp">
-                                    <i class="bi bi-bar-chart"></i> Thống kê doanh số
+                                <a class="nav-link" href="Liststatistic">
+                                    <i class="bi bi-bar-chart"></i> Statistic
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <i class="bi bi-chat"></i> Tin nhắn
+                                    <i class="bi bi-chat"></i> Message
                                     <span class="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">6</span>
                                 </a>
                             </li>
@@ -94,12 +94,12 @@
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="profile.jsp">
-                                    <i class="bi bi-person-square"></i> Thông tin cá nhân
+                                    <i class="bi bi-person-square"></i> Profile
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="logout">
-                                    <i class="bi bi-box-arrow-left"></i> Đăng xuất
+                                    <i class="bi bi-box-arrow-left"></i> Logout
                                 </a>
                             </li>
                         </ul>
@@ -132,22 +132,22 @@
                                     <form action="add-product" method="post">
                                         <tr>
                                             <td>
-                                                <input name="img" type="text" placeholder="Enter image">
+                                                <input name="img" type="text" placeholder="Enter image link" required>
                                             </td>
                                             <td>
-                                                <input name="name" type="text" placeholder="Enter name">
+                                                <input name="name" type="text" placeholder="Enter name" required>
                                             </td>
                                             <td>
-                                                <input name="price" type="number" placeholder="Enter price">
+                                                <input name="price" type="number" placeholder="Enter price" required>
                                             </td>
                                             <td>
-                                                <input name="category" type="number" placeholder="Enter category">
+                                                <input name="category" type="number" placeholder="Enter category" required>
                                             </td>
                                             <td>
-                                                <input name="quantity" type="number" placeholder="Enter quantity">
+                                                <input name="quantity" type="number" placeholder="Enter quantity" required>
                                             </td>
                                             <td>
-                                                <input name="des" type="text" placeholder="Enter description">
+                                                <input name="des" type="text" placeholder="Enter description" required>
                                             </td>
                                             <td class="text-end">
                                                 <input type="submit" value="Add Product">

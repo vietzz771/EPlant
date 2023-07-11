@@ -1,12 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controller;
 
+import Entity.Booking;
 import dao.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.time.LocalDate;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author DELL
  */
-public class ChangePasswordServlet extends HttpServlet {
+public class BookingServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +34,10 @@ public class ChangePasswordServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangePasswordServlet</title>");
+            out.println("<title>Servlet BookingServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ChangePasswordServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BookingServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,8 +55,7 @@ public class ChangePasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("MESSAGE", "");
-        request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -69,27 +67,30 @@ public class ChangePasswordServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String accountId = request.getParameter("account_id");
-        String oldPassword = request.getParameter("password");
-        String newPassword = request.getParameter("newPassword");
-        String confirmPassword = request.getParameter("confirmPassword");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int userId = Integer.parseInt(request.getParameter("user_id"));
+        int staffId = Integer.parseInt(request.getParameter("staff_id"));
+        String typeOfTree = request.getParameter("type_of_tree");
+        String appointmentStartTime = request.getParameter("appointment_start_time");
+        String appointmentStartDate = request.getParameter("appointment_date");
+        String appointmentNote = request.getParameter("appointment_note");
+        String care_package_id = request.getParameter("care_package_id");
+        String status = request.getParameter("status");
         DAO dao = new DAO();
-        if (!confirmPassword.equals(newPassword)) {
-            request.setAttribute("mess", "Password does not matched");
-            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
-        } else {
-            dao.changePassword(accountId, oldPassword, newPassword);
-            request.setAttribute("mess", "Change password successful");
-            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
-        }
-//        if (check) {
-//            request.setAttribute("SUCCESS_MESSAGE", "<div class=\"alert alert-success\" role=\"alert\">Đổi mật khẩu thành công.</div>");
-//            request.getRequestDispatcher("profile.jsp").forward(request, response);
-//        } else {
-//            request.setAttribute("MESSAGE", "<div class=\"alert alert-danger\" role=\"alert\">Có lỗi xảy ra.</div>");
-//            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
-//        }
+        Booking booking = new Booking();
+        booking.setUser_id(userId);
+        booking.setStaff_id(staffId);
+        booking.setType_of_tree(typeOfTree);
+        booking.setCare_package_id(Integer.parseInt(care_package_id));
+        booking.setAppointment_start_time(appointmentStartTime);
+        LocalDate localDate = LocalDate.parse(appointmentStartDate);
+        Date sqlDate = Date.valueOf(localDate);
+        booking.setAppointment_start_date(sqlDate);
+        booking.setAppointment_note(appointmentNote);
+        booking.setStatus(status);
+        dao.addBooking(booking);
+        response.sendRedirect("BookingReceived.jsp");
     }
 
     /**

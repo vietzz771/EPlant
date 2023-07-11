@@ -33,25 +33,27 @@ public class ListOrderInfo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
+
         String indexPage = request.getParameter("index");
-         if (indexPage == null){
-            indexPage ="1";
+        if (indexPage == null) {
+            indexPage = "1";
         }
         int index = Integer.parseInt(indexPage);
-       DAO dao = new DAO ();
-       int count = dao.getTotalOrderInfo();
-       int endPage = count/5;
-       if(count % 3 != 0 ) {
-           endPage++ ;
-       }
-               List<OrderInfo> listOrder = dao.pagingOrderInfo(index);
-               
-               
-       request.setAttribute("listA", listOrder);    
-       request.setAttribute("endP", endPage);
-       request.getRequestDispatcher("statistic.jsp").forward(request, response);
+        DAO dao = new DAO();
+        int count = dao.getTotalOrderInfo();
+        int endPage = count / 8;
+        int totalPages = endPage + 1;
+        if (count % 8 != 0) {
+            endPage++;
+        }
+        List<OrderInfo> listOrder = dao.pagingOrderInfo(index);
+        request.setAttribute("listA", listOrder);
+        request.setAttribute("endP", endPage);
+        request.setAttribute("tag", index);
+        request.setAttribute("totalPages", totalPages);
+        request.getRequestDispatcher("statistic.jsp").forward(request, response);
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

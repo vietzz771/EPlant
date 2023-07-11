@@ -4,7 +4,7 @@
 
 <html>
     <head>
-        <title>User Profile</title>
+        <title>Profile</title>
 
         <link rel="stylesheet" href="assets/css/profile.css" />
 
@@ -15,7 +15,12 @@
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
             <nav class="nav nav-borders">
-                <a class="nav-link  ms-0" href="/Eplant/">Trang chủ</a>
+                <c:if test="${sessionScope.account.role == 'user'}">
+                    <a class="nav-link  ms-0" href="/Eplant/">Trang chủ</a>
+                </c:if>
+                <c:if test="${sessionScope.account.role == 'admin'}">
+                    <a class="nav-link  ms-0" href="/Eplant/account">Trang chủ</a>
+                </c:if>
                 <a class="nav-link active ms-0" href="profile.jsp">Profile</a>
             </nav>
             <hr class="mt-0 mb-4">
@@ -55,11 +60,36 @@
                                         </tr>
                                         <tr>
                                             <th width="30%">Gender</th>
-                                            <td><input type="text" name="sex" value="${sessionScope.account.sex}" required></td>
+                                            <td>
+                                                <c:if test="${sessionScope.account.sex == 'Others'}">
+                                                    <select class="" name="sex" id="sex">
+                                                        <option value="Others" selected>Others</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                    </select>
+                                                </c:if>
+                                                <c:if test="${sessionScope.account.sex == 'Male'}">
+                                                    <select class="" name="sex" id="sex">
+                                                        <option value="Others" >Others</option>
+                                                        <option value="Male" selected>Male</option>
+                                                        <option value="Female">Female</option>
+                                                    </select>
+                                                </c:if>
+                                                <c:if test="${sessionScope.account.sex == 'Female'}">
+                                                    <select class="" name="sex" id="sex">
+                                                        <option value="Others" >Others</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female" selected>Female</option>
+                                                    </select>
+                                                </c:if>
+                                                <!--<input type="text" name="sex" value="${sessionScope.account.sex}" required>-->
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th width="30%">Birthday</th>
-                                            <td><input type="text" name="birthday" value="${sessionScope.account.birthday}"required ></td>
+                                            <td>
+                                                <input name="birthday" type="text" placeholder="BirthDay" value="${sessionScope.account.birthday}" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" required />
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th width="30%">Address</th>

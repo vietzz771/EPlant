@@ -4,6 +4,11 @@
  */
 package dao;
 
+import Entity.Staff;
+import Entity.MyBooking;
+import Entity.Booking;
+import Entity.BookingStaff;
+import Entity.CarePackage;
 import Context.DBContext;
 import Entity.Account;
 import Entity.Cart;
@@ -326,7 +331,7 @@ public class DAO {
 
 //=========================================================================//
 //=========================================================================//
-    public boolean changePassword(String account_id, String oldPassword, String newPassword) {
+    public void changePassword(String account_id, String oldPassword, String newPassword) {
         String query = "SELECT * FROM Account WHERE account_id = ? AND password = ?";
         try {
             con = new DBContext().getConnection();
@@ -340,12 +345,10 @@ public class DAO {
                 ps.setString(1, newPassword);
                 ps.setString(2, account_id);
                 ps.executeUpdate();
-                return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
     }
     //=========================================================================//
 
@@ -901,11 +904,12 @@ public class DAO {
     }
 //-----------------------------------------------------------------------------//
 
-    public List<OrderInfo> getOrderInfo() {
-        List<OrderInfo> listOrder = new ArrayList<>();
-        String query = "SELECT "
+    public List<OrderInfo> getListStatistic() {
+        List<OrderInfo> listStatistic = new ArrayList<>();
+        String query = "SELECT ROW_NUMBER() OVER (ORDER BY Account.full_name) AS stt, "
                 + "Account.full_name AS customer_name, "
                 + "Product.[name] AS product_name, "
+                + "Product.name AS product_name, "
                 + "[Order].order_date AS sale_date, "
                 + "OrderDetail.price AS unit_price, "
                 + "OrderDetail.quantity AS quantity, "
@@ -919,16 +923,18 @@ public class DAO {
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
-                listOrder.add(new OrderInfo(rs.getString(1),
+                listStatistic.add(new OrderInfo(
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getDouble(4),
-                        rs.getInt(5),
-                        rs.getDouble(6)));
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getInt(6),
+                        rs.getDouble(7)));
             }
         } catch (Exception e) {
         }
-        return listOrder;
+        return listStatistic;
     }
 
     public int getTotalOrderInfo() {
@@ -952,7 +958,8 @@ public class DAO {
     public List<OrderInfo> pagingOrderInfo(int index) {
         List<OrderInfo> listOrder = new ArrayList<>();
         try {
-            String query = "SELECT Account.full_name AS customer_name, "
+            String query = "SELECT ROW_NUMBER() OVER (ORDER BY Account.full_name) AS stt, "
+                    + "Account.full_name AS customer_name, "
                     + "Product.name AS product_name, "
                     + "[Order].order_date AS sale_date, "
                     + "OrderDetail.price AS unit_price, "
@@ -963,24 +970,178 @@ public class DAO {
                     + "JOIN Product ON OrderDetail.product_id = Product.product_id "
                     + "JOIN Account ON [Order].account_id = Account.account_id "
                     + "ORDER BY full_name "
-                    + "OFFSET 0 ROWS FETCH NEXT 5 ROWS ONLY";
+                    + "OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setInt(1, (index - 1) * 3); // truyn vao dau  ? dau tien 
+            ps.setInt(1, (index - 1) * 8); // truyn vao dau  ? dau tien 
             // set truoc khi Excute
             rs = ps.executeQuery();
             while (rs.next()) {
-                listOrder.add(new OrderInfo(rs.getString(1),
+                listOrder.add(new OrderInfo(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getDouble(4),
-                        rs.getInt(5),
-                        rs.getDouble(6)));
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getInt(6),
+                        rs.getDouble(7)
+                ));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
         return listOrder;
+    }
+
+    public List<Staff> getStaffInfo() {
+        List<Staff> listStaff = new ArrayList<>();
+        String query = "SELECT account_id, full_name, phone FROM Account WHERE role = 'Gardener'";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listStaff.add(new Staff(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3)));
+
+            }
+        } catch (Exception e) {
+        }
+        return listStaff;
+    }
+
+//================================================================//
+    public void addBooking(Booking booking) {
+        try {
+            String query = "insert into [AppointmentSchedule]([user_id],  [staff_id] ,[appointment_start_time], [type_of_tree],[care_package_id],[appointment_start_date],[appointment_note],[status])\n"
+                    + "Values (?,?,?,?,?,?,?,?);";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+//            set gia tri 
+            ps.setInt(1, booking.getUser_id());
+            ps.setInt(2, booking.getStaff_id());
+            ps.setString(3, booking.getAppointment_start_time());
+            ps.setString(4, booking.getType_of_tree());
+            ps.setInt(5, booking.getCare_package_id());
+            ps.setDate(6, booking.getAppointment_start_date());
+            ps.setString(7, booking.getAppointment_note());
+            ps.setString(8, booking.getStatus());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
+    //================================================================//
+    public List<CarePackage> getCarePackage() {
+        List<CarePackage> listCarePackage = new ArrayList<>();
+        String query = "SELECT * FROM [CarePackage]";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listCarePackage.add(new CarePackage(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDouble(3)));
+
+            }
+        } catch (Exception e) {
+        }
+        return listCarePackage;
+    }
+    //================================================================//
+
+    public List<MyBooking> getMyBooking() {
+        List<MyBooking> listMyBooking = new ArrayList<>();
+        String query = "SELECT a.[appointmentSchedule_id],c.package_name AS care_package_name, a.[user_id], a.type_of_tree, a.appointment_start_date, a.appointment_start_time, ac.full_name AS staff_name, ac.phone AS staff_phone ,a.[status], a.[staff_id], a.care_package_id, a.[appointment_note] "
+                + "FROM [AppointmentSchedule] a "
+                + "INNER JOIN [CarePackage] c ON a.care_package_id = c.care_package_id "
+                + "INNER JOIN [Account] ac ON a.staff_id = ac.account_id "
+                + "WHERE ac.role = 'Gardener'";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listMyBooking.add(new MyBooking(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getDate(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getInt(10),
+                        rs.getInt(11),
+                        rs.getString(12)));
+
+            }
+        } catch (Exception e) {
+        }
+        return listMyBooking;
+    }
+    //================================================================//
+
+    public BookingStaff getBookingById(String id) {
+        try {
+            String query = "SELECT "
+                    + "ap.appointmentSchedule_id, "
+                    + "cp.package_name AS care_package_name, "
+                    + "ap.type_of_tree, "
+                    + "ap.appointment_start_date, "
+                    + "ap.appointment_start_time, "
+                    + "a.full_name AS user_name, "
+                    + "a.phone AS user_phone, "
+                    + "ap.[status], "
+                    + "cp.[price], "
+                    + "ap.appointment_note "
+                    + "FROM [AppointmentSchedule] ap "
+                    + "INNER JOIN [Account] a ON ap.user_id = a.account_id "
+                    + "INNER JOIN CarePackage cp ON ap.care_package_id = cp.care_package_id "
+                    + "WHERE ap.appointmentSchedule_id = ?";
+
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new BookingStaff(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10)
+                );
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return null;
+    }
+
+    public void editBookingStaff(BookingStaff bf, int id) {
+        try {
+            String query = "update [AppointmentSchedule] set [status] = ? where [appointmentSchedule_id] = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+
+            ps.setString(1, bf.getStatus());
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
     }
 
     public static void main(String[] args) throws Exception {

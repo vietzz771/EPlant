@@ -17,7 +17,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="assets/css/admin.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <title>Account</title>
+        <title>Account Management</title>
     </head>
     <body>
         <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
@@ -67,28 +67,28 @@
                         </c:if>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
-                                    <i class="bi bi-people"></i> Quản lí tài khoản
+                                <a class="nav-link active" href="account">
+                                    <i class="bi bi-people"></i> Account Management
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="product">
-                                    <i class="bi bi-shop"></i> Quản lí sản phẩm
+                                    <i class="bi bi-shop"></i> Product Management
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="listOrder">
-                                    <i class="bi bi-box"></i> Quản lí đơn hàng
+                                    <i class="bi bi-box"></i> Order Management
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="statistic.jsp">
-                                    <i class="bi bi-bar-chart"></i> Thống kê doanh số
+                                <a class="nav-link" href="Liststatistic">
+                                    <i class="bi bi-bar-chart"></i> Statistic
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <i class="bi bi-chat"></i> Tin nhắn
+                                    <i class="bi bi-chat"></i> Message
                                     <span class="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">6</span>
                                 </a>
                             </li>
@@ -97,12 +97,12 @@
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="profile.jsp">
-                                    <i class="bi bi-person-square"></i> Thông tin cá nhân
+                                    <i class="bi bi-person-square"></i> Profile
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="logout">
-                                    <i class="bi bi-box-arrow-left"></i> Đăng xuất
+                                    <i class="bi bi-box-arrow-left"></i> Logout
                                 </a>
 
 
@@ -118,18 +118,18 @@
             <!-- Main content -->
             <div class="container mt-3">
                 <div class="col-md-12 text-center mb-3">
-                    <h2>${action.equals("search") ? "Kết quả tìm kiếm" : "Danh sách người dùng"}</h2>
+                    <h2>${action.equals("search") ? "Search results" : "List account"}</h2>
                 </div>
                 <div class="row justify-content-center align-items-center">
                     <form action="SearchAccount" method="POST" class="row justify-content-center align-items-center">
                         <div class="col-md-6">
                             <div class="input-group">
-                                <input class="form-control form-control-sm" name="fullname" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                                <input class="form-control form-control-sm" name="fullname" type="search" placeholder="Search by name..." aria-label="Search">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+                                <button class="btn btn-outline-success" type="submit">Search</button>
                             </div>
                         </div>
                     </form>
@@ -137,7 +137,7 @@
                 <div class="row justify-content-end">
                     <div class="col-md-2">
                         <div class="input-group-append">
-                            <button id="addUserButton" type="button" class="btn btn-primary">Thêm người dùng</button>
+                            <button id="addUserButton" type="button" class="btn btn-primary">Add account</button>
                         </div>
                     </div>
                 </div>
@@ -151,17 +151,16 @@
                                     <table class="table table-hover table-striped">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th scope="col" >STT</th>
-                                                <th scope="col" >Vai trò</th>
-                                                <th scope="col" >Người dùng</th>
-                                                <th scope="col" >Họ tên</th>
-                                                <th scope="col" >Giới tính</th>
-                                                <th scope="col" >Ngày sinh</th>
-                                                <th scope="col" >Địa chỉ</th>
-                                                <th scope="col" >Số điện thoại</th>
+                                                <th scope="col" >ID</th>
+                                                <th scope="col" >Role</th>
+                                                <th scope="col" >Username</th>
+                                                <th scope="col" >Name</th>
+                                                <th scope="col" >Gender</th>
+                                                <th scope="col" >Birthday</th>
+                                                <th scope="col" >Address</th>
+                                                <th scope="col" >Phone</th>
                                                 <th scope="col" >Email</th>
-                                                <th scope="col" >Xóa</th>
-                                                <th scope="col" >Chỉnh sửa</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -176,11 +175,13 @@
                                                     <td>${i.address}</td>
                                                     <td>${i.phone}</td>
                                                     <td>${i.email}</td>
-                                                    <td>
-                                                        <a role="button" class="btn btn-danger" href="delete-account?account_id=${i.account_id}">Xóa</a>
-                                                    </td>
-                                                    <td>
-                                                        <a role="button" class="btn btn-info" href="updateAccount?account_id=${i.account_id}">Chỉnh sửa</a>
+                                                    <td class="text-end">
+                                                        <a href="updateAccount?account_id=${i.account_id}">Edit</a>
+                                                        <a href="delete-account?account_id=${i.account_id}">
+                                                            <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -200,7 +201,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="myModalLabel34">Thêm Người dùng</h4>
+                                <h4 class="modal-title" id="myModalLabel34">Add account</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -208,49 +209,50 @@
                             <div class="modal-body">
                                 <form action="AddAccount" method="post">
                                     <div class="form-group">
-                                        <label for="user">Tên tài khoản</label>
-                                        <input type="text" id="user" name="user" class="form-control" placeholder="">
+                                        <label for="user">Username</label>
+                                        <input type="text" id="user" name="user" class="form-control" required maxlength="50" autofocus pattern="([^\s][A-z0-9]+)" title="Not include spaces">
                                     </div>
                                     <div class="form-group">
-                                        <label for="password">Mật khẩu</label>
-                                        <input type="password" class="form-control" name="password" id="password" placeholder autocomplete="current-password">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" name="password" id="password" required maxlength="50" pattern="(?=.*\d)(?=.*[a-z]).{8,}" title="Must contain at least one number and at least 8 or more characters">
                                     </div>
                                     <div class="form-group">
-                                        <label for="full_name">Họ tên Người dùng</label>
-                                        <input type="text" class="form-control" name="full_name" id="full_name" placeholder="">
+                                        <label for="full_name">Full name</label>
+                                        <input type="text" class="form-control" name="full_name" id="full_name" required maxlength="100">
                                     </div>
                                     <div class="form-group">
-                                        <label for="phone">Số điện thoại</label>
-                                        <input type="text" class="form-control" name="phone" id="phone" placeholder="">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" class="form-control" name="phone" id="phone"  required maxlength="10" pattern="[0-9]{10}" title="Must constrain at 10 numbers" onkeyup="this.value = this.value.replace(/[^0-9]/g, '');">
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input name="email" type="email" class="form-control" id="email" placeholder autocomplete="username">
+                                        <input name="email" type="email" class="form-control" id="email"  required maxlength="50" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$">
                                     </div>
                                     <div class="form-group">
-                                        <label for="address">Địa chỉ</label>
-                                        <input name="address" type="text" class="form-control" id="address" placeholder="">
+                                        <label for="address">Address</label>
+                                        <input name="address" type="text" class="form-control" id="address" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="role">Chức năng</label>
+                                        <label for="role">Role</label>
                                         <select class="form-control" name="role" id="role">
                                             <option value="User">User</option>
-                                            <option value="cService">cService</option>
+                                            <option value="Gardener">Gardener</option>
                                             <option value="Staff">Sale Staff</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="birthday">Ngày sinh</label>
-                                        <input name="birthday" type="date" class="form-control" id="birthday" placeholder="">
+                                        <label for="birthday">Birthday</label>
+                                        <input name="birthday" type="date" class="form-control" id="birthday" onfocus="(this.type='date')" onblur="(this.type='text')" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="sex">Giới tính</label>
+                                        <label for="sex">Gender</label>
                                         <select class="form-control" name="sex" id="sex">
-                                            <option value="Nam">Nam</option>
-                                            <option value="Nữ">Nữ</option>
+                                            <option value="Others" selected>Others</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-success mt-3 col-md-5 float-right">Tạo tài khoản</button>
+                                    <button type="submit" class="btn btn-success mt-3 col-md-5 float-right">Create account</button>
                                 </form>
                             </div>
                         </div>
@@ -278,7 +280,6 @@
                 document.querySelector('#addForm .close').addEventListener('click', function () {
                     // Ẩn form modal
                     document.getElementById('addForm').style.display = 'none';
-
                     // Quay trở lại trang account
                     window.location.href = '/Eplant/account';
                 });

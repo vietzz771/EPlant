@@ -15,7 +15,12 @@
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
             <nav class="nav nav-borders">
-                <a class="nav-link  ms-0" href="/Eplant/" target="__blank">Trang chủ</a>
+                <c:if test="${sessionScope.account.role == 'user'}">
+                    <a class="nav-link  ms-0" href="/Eplant/">Home Page</a>
+                </c:if>
+                <c:if test="${sessionScope.account.role == 'admin'}">
+                    <a class="nav-link  ms-0" href="/Eplant/account">Home Page</a>
+                </c:if>
                 <a class="nav-link active ms-0" href="#" target="__blank">Profile</a>
             </nav>
             <hr class="mt-0 mb-4">

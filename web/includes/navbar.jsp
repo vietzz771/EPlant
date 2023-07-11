@@ -33,6 +33,15 @@
                         <a class="nav-link text-uppercase text-dark" href="/Eplant/myOrder">my order</a>
                     </li>
                 </c:if>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-uppercase text-dark" href="#" id="bookingDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Booking Garderner
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="bookingDropdown">
+                        <li><a class="dropdown-item" href="/Eplant/bookingS" onclick="closeDropdown()">Booking Now</a></li>
+                        <li><a class="dropdown-item" href="/Eplant/mybooking" onclick="closeDropdown()">My Booking</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <div class="col-lg-3 order-lg-2 nav-btns d-flex justify-content-end">

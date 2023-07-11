@@ -77,7 +77,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="statistic.jsp">
+                                <a class="nav-link" href="Liststatistic">
                                     <i class="bi bi-bar-chart"></i> Thống kê doanh số
                                 </a>
                             </li>
