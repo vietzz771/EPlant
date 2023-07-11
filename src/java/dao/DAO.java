@@ -6,14 +6,19 @@ package dao;
 
 import Context.DBContext;
 import Entity.Account;
+import Entity.Booking;
+import Entity.BookingStaff;
+import Entity.CarePackage;
 import Entity.Cart;
 import Entity.Category;
 import Entity.CategoryName;
 import Entity.Item;
+import Entity.MyBooking;
 import Entity.Order;
 import Entity.OrderDetail;
 import Entity.OrderInfo;
 import Entity.Product;
+import Entity.Staff;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -321,8 +326,12 @@ public class DAO {
             e.printStackTrace();
         }
     }
+<<<<<<< Updated upstream
     return false;
 }
+=======
+    //=========================================================================//
+>>>>>>> Stashed changes
 
 //=========================================================================//
 
@@ -340,7 +349,11 @@ public class DAO {
         }
     }
 
+<<<<<<< Updated upstream
     public void editProduct(Product product) {
+=======
+    public void editProduct(Product product, int id) {
+>>>>>>> Stashed changes
         try {
             String query = "update Product set [name] = ?, [image] = ?, price = ?, [description] = ?, cid = ? where productID = ?";
             con = new DBContext().getConnection();
@@ -846,10 +859,168 @@ public class DAO {
         }
         return listOrder;
     }
+//================================================================//
+
+    public List<Staff> getStaffInfo() {
+        List<Staff> listStaff = new ArrayList<>();
+        String query = "SELECT account_id, full_name, phone FROM Account WHERE role = 'Gardener'";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listStaff.add(new Staff(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3)));
+
+            }
+        } catch (Exception e) {
+        }
+        return listStaff;
+    }
+
+//================================================================//
+    public void addBooking(Booking booking) {
+        try {
+            String query = "insert into [AppointmentSchedule]([user_id],  [staff_id] ,[appointment_start_time], [type_of_tree],[care_package_id],[appointment_start_date],[appointment_note],[status])\n"
+                    + "Values (?,?,?,?,?,?,?,?);";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+//            set gia tri 
+            ps.setInt(1, booking.getUser_id());
+            ps.setInt(2, booking.getStaff_id());
+            ps.setString(3, booking.getAppointment_start_time());
+            ps.setString(4, booking.getType_of_tree());
+            ps.setInt(5, booking.getCare_package_id());
+            ps.setDate(6, booking.getAppointment_start_date());
+            ps.setString(7, booking.getAppointment_note());
+            ps.setString(8, booking.getStatus());
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
+    //================================================================//
+    public List<CarePackage> getCarePackage() {
+        List<CarePackage> listCarePackage = new ArrayList<>();
+        String query = "SELECT * FROM [CarePackage]";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listCarePackage.add(new CarePackage(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDouble(3)));
+
+            }
+        } catch (Exception e) {
+        }
+        return listCarePackage;
+    }
+    //================================================================//
+
+    public List<MyBooking> getMyBooking() {
+        List<MyBooking> listMyBooking = new ArrayList<>();
+        String query = "SELECT a.[appointmentSchedule_id],c.package_name AS care_package_name, a.[user_id], a.type_of_tree, a.appointment_start_date, a.appointment_start_time, ac.full_name AS staff_name, ac.phone AS staff_phone ,a.[status], a.[staff_id], a.care_package_id, a.[appointment_note] "
+                + "FROM [AppointmentSchedule] a "
+                + "INNER JOIN [CarePackage] c ON a.care_package_id = c.care_package_id "
+                + "INNER JOIN [Account] ac ON a.staff_id = ac.account_id "
+                + "WHERE ac.role = 'Gardener'";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listMyBooking.add(new MyBooking(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getDate(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getInt(10),
+                        rs.getInt(11),
+                        rs.getString(12)));
+
+            }
+        } catch (Exception e) {
+        }
+        return listMyBooking;
+    }
+    //================================================================//
+
+    public BookingStaff getBookingById(String id) {
+        try {
+            String query = "SELECT "
+                    + "ap.appointmentSchedule_id, "
+                    + "cp.package_name AS care_package_name, "
+                    + "ap.type_of_tree, "
+                    + "ap.appointment_start_date, "
+                    + "ap.appointment_start_time, "
+                    + "a.full_name AS user_name, "
+                    + "a.phone AS user_phone, "
+                    + "ap.[status], "
+                    + "cp.[price], "
+                    + "ap.appointment_note "
+                    + "FROM [AppointmentSchedule] ap "
+                    + "INNER JOIN [Account] a ON ap.user_id = a.account_id "
+                    + "INNER JOIN CarePackage cp ON ap.care_package_id = cp.care_package_id "
+                    + "WHERE ap.appointmentSchedule_id = ?";
+
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new BookingStaff(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10)
+                );
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return null;
+    }
+    //================================================================//
+
+    public void editBookingStaff(BookingStaff bf, int id) {
+        try {
+            String query = "update [AppointmentSchedule] set [status] = ? where [appointmentSchedule_id] = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+
+            ps.setString(1, bf.getStatus());
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+    //================================================================//
 
     public static void main(String[] args) throws Exception {
 
 //        DAO dao = new DAO();
+<<<<<<< Updated upstream
 //        List<OrderInfo> list = dao.pagingOrderInfo(3);
 //        for (OrderInfo o : list) {
 //            System.out.println(o);
@@ -858,5 +1029,10 @@ public class DAO {
         //---------//
 //        int count = dao.getTotalOrderInfo();
 //          System.out.println(count);
+=======
+//        BookingStaff listOrder = dao.editBookingStaff(getStatus("2"),1);
+//        System.out.println(listOrder);
+>>>>>>> Stashed changes
     }
+
 }

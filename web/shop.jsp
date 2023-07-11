@@ -15,6 +15,8 @@
     <body>
         <%@ include file="/includes/start.jsp" %>
         <%@ include file="/includes/navbar.jsp" %>
+                <%@ include file="/includes/end.jsp" %>
+
         <div class="shop">
             <div class="container">
                 <div

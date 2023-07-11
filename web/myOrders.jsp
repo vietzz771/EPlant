@@ -14,6 +14,8 @@
     <body>
         <%@ include file="/includes/start.jsp" %>
         <%@ include file="/includes/navbar.jsp" %>
+                <%@ include file="/includes/end.jsp" %>
+
         <div class="container mt-17 mb-5">
             <div>
                 <div class="py-3 sub-link d-flex">
@@ -24,7 +26,7 @@
             <c:forEach items="${order}" var="listO">
                 <div class="cart-border mt-5">
                     <div class="cart-title d-flex text-center justify-content-between p-3">
-                        <h5 class="align-self-center">Order: #${listO.order_id}</h5>
+                        <h5 class="align-self-center">Order: </h5>
                         <span class="bg-pending py-2 px-4 text-white text-capitalize">${listO.order_status}</span>
                     </div>
                     <c:forEach items="${orderDetail}" var="listOD">

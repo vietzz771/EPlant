@@ -39,6 +39,7 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String remember = request.getParameter("remember");
+
         DAO dao = new DAO();
         Account acc = dao.Login(username, password);
         if (acc == null) {
@@ -54,7 +55,16 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("account");
                 return;
             }
+<<<<<<< Updated upstream
             
+=======
+                    String role = acc.getRole();
+
+            if (role.equals("Gardener")) {
+                response.sendRedirect("AppointmentSchedule");
+                return;
+            }
+>>>>>>> Stashed changes
             Cookie u = new Cookie("user", username);
             Cookie p = new Cookie("password", password);
             u.setMaxAge(60 * 60 * 24 * 365);

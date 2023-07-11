@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-white py-4 fixed-top">
     <div class="container">
         <div class="col-lg-3 order-lg-0 d-flex align-items-center">
@@ -25,6 +27,24 @@
                 <li class="nav-item">
                     <a class="nav-link text-uppercase text-dark" href="#footer">about us</a>
                 </li>
+<<<<<<< Updated upstream
+=======
+                <c:if test="${sessionScope.account != null}">
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase text-dark" href="/Eplant/myOrder">my order</a>
+                    </li>
+                </c:if>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-uppercase text-dark" href="#" id="bookingDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Booking Garderner
+                    </a>
+             <ul class="dropdown-menu" aria-labelledby="bookingDropdown">
+        <li><a class="dropdown-item" href="/Eplant/bookingS" onclick="closeDropdown()">Booking Now</a></li>
+        <li><a class="dropdown-item" href="/Eplant/mybooking" onclick="closeDropdown()">My Booking</a></li>
+    </ul>
+                </li>
+
+>>>>>>> Stashed changes
             </ul>
         </div>
         <div class="col-lg-3 order-lg-2 nav-btns d-flex justify-content-end">

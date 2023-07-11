@@ -148,8 +148,7 @@
                                                 <th scope="col" >Địa chỉ</th>
                                                 <th scope="col" >Số điện thoại</th>
                                                 <th scope="col" >Email</th>
-                                                <th scope="col" >Xóa</th>
-                                                <th scope="col" >Chỉnh sửa</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -164,12 +163,16 @@
                                                     <td>${i.address}</td>
                                                     <td>${i.phone}</td>
                                                     <td>${i.email}</td>
-                                                    <td>
-                                                        <a role="button" class="btn btn-danger" href="delete-account?account_id=${i.account_id}">Xóa</a>
-                                                    </td>
-                                                    <td>
-                                                        <a role="button" class="btn btn-info" href="updateAccount?account_id=${i.account_id}">Chỉnh sửa</a>
-                                                    </td>
+                                                  
+                                                    
+                                                        <td class="text-end">
+                                                <a href="updateAccount?account_id=${i.account_id}">Edit</a>
+                                                <a href="delete-account?account_id=${i.account_id}">
+                                                    <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </a>
+                                            </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>

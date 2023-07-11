@@ -12,5 +12,12 @@
         <script src="assets/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
         <!-- custom js -->
         <script src="assets/js/script.js"></script>
+  <script>
+    function closeDropdown() {
+        var dropdownMenu = document.querySelector('.dropdown-menu');
+        var bsDropdown = bootstrap.Dropdown.getInstance(dropdownMenu.parentNode);
+        bsDropdown.hide();
+    }
+</script>
     </body>
 </html>
