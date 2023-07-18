@@ -16,10 +16,10 @@
             <!-- Account page navigation-->
             <nav class="nav nav-borders">
                 <c:if test="${sessionScope.account.role == 'user'}">
-                    <a class="nav-link  ms-0" href="/Eplant/">Trang chủ</a>
+                    <a class="nav-link  ms-0" href="/Eplant/">Home Page</a>
                 </c:if>
                 <c:if test="${sessionScope.account.role == 'admin'}">
-                    <a class="nav-link  ms-0" href="/Eplant/account">Trang chủ</a>
+                    <a class="nav-link  ms-0" href="/Eplant/account">Home Page</a>
                 </c:if>
                 <a class="nav-link active ms-0" href="profile.jsp">Profile</a>
             </nav>
@@ -47,7 +47,7 @@
                     <div class="card mb-4">
                         <div class="card-header">Account Details</div>
                         <div class="card shadow-sm">
-                            <div class="card-body pt-0">
+                            <div class="card-body pt-0 mt-3">
                                 <form action="UpdateProfileServlet" method="post">
                                     <table class="table table-bordered">
                                         <tr>

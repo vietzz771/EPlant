@@ -63,6 +63,20 @@ public class DAO {
         return null;
     }
 
+    public void UpdatePassword(String password, String email) {
+        String query = "UPDATE Account SET password=? WHERE [email]=?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareCall(query);
+            ps.setString(1, password);
+            ps.setString(2, email);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            // Xử lý lỗi
+        }
+    }
+
     public Account CheckAccountExist(String user) {
         String query = "select * from  Account where [user] = ?";
         try {

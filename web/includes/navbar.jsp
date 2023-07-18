@@ -32,16 +32,16 @@
                     <li class="nav-item">
                         <a class="nav-link text-uppercase text-dark" href="/Eplant/myOrder">my order</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-uppercase text-dark" href="#" id="bookingDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Booking Garderner
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="bookingDropdown">
+                            <li><a class="dropdown-item" href="/Eplant/bookingS" onclick="closeDropdown()">Booking Now</a></li>
+                            <li><a class="dropdown-item" href="/Eplant/mybooking" onclick="closeDropdown()">My Booking</a></li>
+                        </ul>
+                    </li>
                 </c:if>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-uppercase text-dark" href="#" id="bookingDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Booking Garderner
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="bookingDropdown">
-                        <li><a class="dropdown-item" href="/Eplant/bookingS" onclick="closeDropdown()">Booking Now</a></li>
-                        <li><a class="dropdown-item" href="/Eplant/mybooking" onclick="closeDropdown()">My Booking</a></li>
-                    </ul>
-                </li>
             </ul>
         </div>
         <div class="col-lg-3 order-lg-2 nav-btns d-flex justify-content-end">
@@ -51,14 +51,6 @@
                         <i class="fa fa-shopping-cart"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge bg-primary">${n}</span>
                     </button>
-                </a>      
-            </div>
-            <div class="bd-nav mx-2 px-1">
-                <a href="heart">
-                    <button type="button" class="btn position-relative">
-                        <i class="fa fa-heart"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge bg-primary">2</span>
-                    </button> 
                 </a>      
             </div>
             <div class="col-auto d-flex align-items-center">

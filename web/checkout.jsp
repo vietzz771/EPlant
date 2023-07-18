@@ -78,7 +78,7 @@
                             </div>
                             <div class="text-center">
                                 <!--<a href="shop" class="cart-btn">-->
-                                    <button class="order-btn p-4 px-5">PLACE ORDER</button>
+                                <button class="order-btn p-4 px-5">PLACE ORDER</button>
                                 <!--</a>-->
                             </div>
                         </div>
@@ -87,6 +87,13 @@
             </form>
         </div>
         <%@ include file="/includes/footer.jsp" %>
-        <<script src="assets/js/script.js"></script>
+        <script src="assets/js/script.js"></script>
     </body>
+    <script src="assets/js/jquery-3.6.0.js"></script>
+    <!-- isotope js -->
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+    <!-- bootstrap js -->
+    <script src="assets/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <!-- custom js -->
+    <script src="assets/js/script.js"></script>
 </html>

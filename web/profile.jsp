@@ -39,7 +39,7 @@
                             <div class="card-body">
                                 <p class="mb-0"><strong class="pr-1">Role: </strong>  ${sessionScope.account.role}</p>
                             </div>
-                            <a class="btn btn-primary" href="changePassword.jsp">Change Password</a>
+                            <a class="btn btn-success" href="changePassword.jsp">Change Password</a>
                         </div>
                     </div>
                 </div>
@@ -48,8 +48,7 @@
                     <div class="card mb-4">
                         <div class="card-header">Account Details</div>
                         <div class="card shadow-sm">
-
-                            <div class="card-body pt-0">
+                            <div class="card-body pt-0 mt-3">
                                 <table class="table table-bordered">
                                     <tr>
                                         <th width="30%">Full Name</th>
@@ -77,7 +76,7 @@
                                         <td>${sessionScope.account.email}</td>
                                     </tr>
                                 </table>
-                                <button class="btn btn-primary" type="button" onclick="redirectToJSP()">Edit</button>
+                                <button class="btn btn-success" type="button" onclick="redirectToJSP()">Edit</button>
 
                                 <script>
                                     function redirectToJSP() {
