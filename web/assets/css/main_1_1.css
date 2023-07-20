@@ -588,3 +588,15 @@ footer a:hover {
         border-bottom: none;
     }
 }
+.span-ofs {
+    position: absolute;
+    top: 10px !important;
+    right: 10px !important;
+    text-wrap: nowrap;
+    border: 1px #ced4da solid;
+    border-radius: 5px;
+    background-color: #ced4da;
+    color: #ff3333;
+    padding: 5px 10px;
+    font-weight: bold;
+}

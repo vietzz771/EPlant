@@ -55,19 +55,17 @@ public class BuyNowServlet extends HttpServlet {
 //        }
             String num = request.getParameter("num");
             String id = request.getParameter("id");
-            if (txt.isEmpty()) {
-                txt = id + ":" + num;
-            } else {
-                txt = txt + "/" + id + ":" + num;
-            }
-            Cookie c = new Cookie("cart", txt);
-            c.setMaxAge(2 * 24 * 60 * 60);
-            response.addCookie(c);
-            response.sendRedirect("checkout");
+                if (txt.isEmpty()) {
+                    txt = id + ":" + num;
+                } else {
+                    txt = txt + "/" + id + ":" + num;
+                }
+                Cookie c = new Cookie("cart", txt);
+                c.setMaxAge(2 * 24 * 60 * 60);
+                response.addCookie(c);
+                response.sendRedirect("checkout");
         }
-
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

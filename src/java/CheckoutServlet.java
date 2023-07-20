@@ -96,31 +96,43 @@ public class CheckoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        String opPay = request.getParameter("opPay");
+        float totalMoney = Float.parseFloat(request.getParameter("totalMoney"));
+        HttpSession session = request.getSession();
+        session.setAttribute("totalMoney", totalMoney);
         String orderNotes = request.getParameter("orderNotes");
+        session.setAttribute("orderNotes", orderNotes);
+        Account a = (Account) session.getAttribute("account");
+        if (opPay.equals("VNPAY")) {
+            if (a == null) {
+                response.sendRedirect("login");
+            } else {
+                response.sendRedirect("ajax");
+            }
 
-        DAO dao = new DAO();
-        List<Product> list = dao.getListProduct();
-        Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt += o.getValue();
+        } else {
+            DAO dao = new DAO();
+            List<Product> list = dao.getListProduct();
+            Cookie[] arr = request.getCookies();
+            String txt = "";
+            if (arr != null) {
+                for (Cookie o : arr) {
+                    if (o.getName().equals("cart")) {
+                        txt += o.getValue();
+                    }
                 }
             }
-        }
-        Cart cart = new Cart(txt, list);
-
-        HttpSession session = request.getSession();
-        Account a = (Account) session.getAttribute("account");
-        if (a == null) {    
-            response.sendRedirect("login");
-        } else {
-            dao.addOrder(a, cart, orderNotes);
-            Cookie c = new Cookie("cart", "");
-            c.setMaxAge(0);
-            response.addCookie(c);
-            response.sendRedirect("OrderReceived.jsp");
+            Cart cart = new Cart(txt, list);
+            if (a == null) {
+                response.sendRedirect("login");
+            } else {
+                String paymentStatus = "Payment in cash";
+                dao.addOrder(a, cart, orderNotes, paymentStatus);
+                Cookie c = new Cookie("cart", "");
+                c.setMaxAge(0);
+                response.addCookie(c);
+                response.sendRedirect("OrderReceived.jsp");
+            }
         }
     }
 

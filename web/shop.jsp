@@ -69,33 +69,74 @@
                 </div>
                 <div class="shop-right col-9">
                     <span class="px-2 text-show">Showing all of item(s)</span>
+                    <div class="fade modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Product is out of stock</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Sorry for the inconvenience, please choose another product!
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="collection-list row">
                         <c:forEach items="${listProduct}" var="listPd">
-                            <div class="col-md-6 col-lg-4 col-xl-4 p-4">
-                                <div class="transition">
-                                    <a href="productDetail?pid=${listPd.productID}&cid=${listPd.cid}" class="a-fix">
-                                        <div class="collection-img position-relative">
-                                            <img
-                                                src="${listPd.image}"
-                                                class="w-100"
-                                                />
-                                        </div>
-                                        <div class="text-center">
-                                            <p class="text-capitalize my-1">${listPd.name}</p>
-                                            <span class="fw-bold">$ ${listPd.price}.00</span>
-                                            <div>
-                                                <a href="add-to-cart?id=${listPd.productID}&num=1" class="text-decoration-none text-dark btn-hover">
-                                                    <button class="btn m-2 text-dark button">
+                            <c:if test="${listPd.quantity > 0}">
+                                <div class="col-md-6 col-lg-4 col-xl-4 p-4">
+                                    <div class="transition">
+                                        <a href="productDetail?pid=${listPd.productID}&cid=${listPd.cid}" class="a-fix">
+                                            <div class="collection-img position-relative">
+                                                <img
+                                                    src="${listPd.image}"
+                                                    class="w-100"
+                                                    />
+                                            </div>
+                                            <div class="text-center">
+                                                <p class="text-capitalize my-1">${listPd.name}</p>
+                                                <span class="fw-bold">$ ${listPd.price}.00</span>
+                                                <div>
+                                                    <a href="add-to-cart?id=${listPd.productID}&num=1" class="text-decoration-none text-dark btn-hover">
+                                                        <button class="btn m-2 text-dark button">
+                                                            <i class="fa fa-shopping-cart"></i> Add to Cart
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>    
+                            </c:if>
+                            <c:if test="${listPd.quantity <= 0}">
+                                <div class="col-md-6 col-lg-4 col-xl-4 p-4">
+                                    <div class="transition">
+                                        <a href="#" class="a-fix">
+                                            <div class="collection-img position-relative">
+                                                <img
+                                                    src="${listPd.image}"
+                                                    class="w-100"
+                                                    />
+                                                <div class="span-ofs"><span>Out of Stock</span></div>
+                                            </div>
+                                            <div class="text-center">
+                                                <p class="text-capitalize my-1">${listPd.name}</p>
+                                                <span class="fw-bold">$ ${listPd.price}.00</span>
+                                                <div>
+                                                    <button class="btn m-2 text-dark button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                         <i class="fa fa-shopping-cart"></i> Add to Cart
                                                     </button>
-                                                </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>    
+                                        </a>
+                                    </div>
+                                </div>  
+                            </c:if>
                         </c:forEach>
-
                     </div>
                     <div class="d-flex justify-content-center py-4">
                         <c:set var="count" value="${count}"></c:set>

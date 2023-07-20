@@ -9,6 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="assets/css/myOrder.css"/>
         <title>My Orders</title>
     </head>
     <body>
@@ -17,15 +18,122 @@
         <div class="container mt-17 mb-5">
             <div>
                 <div class="py-3 sub-link d-flex">
-                    <a href="#" class="px-2">My Orders</a>
+                    <a href="myOrder" class="px-2">My Orders</a>
                     &gt;
                 </div>
             </div>
+            <div class="mt-3">
+                <div class="d-flex o-status">
+                    <c:if test="${status != 'pending' && status != 'shipping' && status != 'completed' && status !='cancelled' && status !='all'}">
+                        <a href="CateMyOrder?stt=all">
+                            <button class="btn btn-outline-secondary">All</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=pending">
+                            <button class="btn btn-primary">Pending</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=shipping">
+                            <button class="btn btn-outline-dark">Shipping</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=completed">
+                            <button class="btn btn-outline-success">Completed</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=cancelled">
+                            <button class="btn btn-outline-danger">Cancelled</button>
+                        </a>
+                    </c:if>
+                    <c:if test="${status == 'all'}">
+                        <a href="CateMyOrder?stt=all">
+                            <button class="btn bg-secondary text-white">All</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=pending">
+                            <button class="btn btn-outline-primary">Pending</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=shipping">
+                            <button class="btn btn-outline-dark">Shipping</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=completed">
+                            <button class="btn btn-outline-success">Completed</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=cancelled">
+                            <button class="btn btn-outline-danger">Cancelled</button>
+                        </a>
+                    </c:if>
+                    <c:if test="${status == 'pending'}">
+                        <a href="CateMyOrder?stt=all">
+                            <button class="btn btn-outline-secondary">All</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=pending">
+                            <button class="btn bg-pending text-white">Pending</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=shipping">
+                            <button class="btn btn-outline-dark">Shipping</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=completed">
+                            <button class="btn btn-outline-success">Completed</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=cancelled">
+                            <button class="btn btn-outline-danger">Cancelled</button>
+                        </a>
+                    </c:if>
+                    <c:if test="${status == 'shipping'}">
+                        <a href="CateMyOrder?stt=all">
+                            <button class="btn btn-outline-secondary">All</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=pending">
+                            <button class="btn btn-outline-primary">Pending</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=shipping">
+                            <button class="btn bg-shipping text-white">Shipping</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=completed">
+                            <button class="btn btn-outline-success">Completed</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=cancelled">
+                            <button class="btn btn-outline-danger">Cancelled</button>
+                        </a>
+                    </c:if>
+                    <c:if test="${status == 'completed'}">
+                        <a href="CateMyOrder?stt=all">
+                            <button class="btn btn-outline-secondary">All</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=pending">
+                            <button class="btn btn-outline-primary">Pending</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=shipping">
+                            <button class="btn btn-outline-dark">Shipping</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=completed">
+                            <button class="btn text-white bg-completed">Completed</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=cancelled">
+                            <button class="btn btn-outline-danger">Cancelled</button>
+                        </a>
+                    </c:if>
+                    <c:if test="${status == 'cancelled'}">
+                        <a href="CateMyOrder?stt=all">
+                            <button class="btn btn-outline-secondary">All</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=pending">
+                            <button class="btn btn-outline-primary">Pending</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=shipping">
+                            <button class="btn btn-outline-dark">Shipping</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=completed">
+                            <button class="btn btn-outline-success">Completed</button>
+                        </a>
+                        <a class="px-2" href="CateMyOrder?stt=cancelled">
+                            <button class="btn bg-cancelled text-white">Cancelled</button>
+                        </a>
+                    </c:if>
+                </div>
+            </div>
+
             <c:forEach items="${order}" var="listO">
-                <div class="cart-border mt-5">
+                <div class="cart-border mt-3">
                     <div class="cart-title d-flex text-center justify-content-between p-3">
-                        <h5 class="align-self-center">Order: #${listO.order_id}</h5>
-                        <c:if test="${listO.order_status == 'pending'}">
+                        <h5 class="align-self-center">Order: #${listO.order_id} <span class="fs-6 text-black-50 fst-italic">${listO.order_date}</span></h5>
+                            <c:if test="${listO.order_status == 'pending'}">
                             <span class="bg-pending py-2 px-4 text-white text-capitalize">${listO.order_status}</span>
                         </c:if>
                         <c:if test="${listO.order_status == 'shipping'}">
@@ -59,6 +167,9 @@
                             </c:forEach>
                         </c:if>
                     </c:forEach>
+                    <div class="d-flex justify-content-between p-3 border-bottom">
+                        <h6 class="align-self-center m-0">Payment status: ${listO.payment_status}</h6>
+                    </div>
                     <div class="d-flex justify-content-between p-3">
                         <span class="align-self-center text-danger">Total: $ ${listO.total_price}.00</span>
                         <div class="d-flex justify-content-end">
@@ -68,9 +179,11 @@
                                                             </a>
                                                         </div>-->
                             <div>
-                                <a href="processOrder?oid=${listO.order_id}" class="cart-btn">
-                                    <button class="p-2 px-4">Cancel Order</button>
-                                </a>
+                                <c:if test="${listO.order_status != 'cancelled'}">
+                                    <a href="processOrder?oid=${listO.order_id}" class="cart-btn">
+                                        <button class="p-2 px-4">Cancel Order</button>
+                                    </a>
+                                </c:if>
                             </div>
                         </div>
                     </div>

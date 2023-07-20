@@ -16,11 +16,12 @@ public class Order {
     private int total_price;
     private String order_notes;
     private int promotion_id;
+    private String payment_status;
 
     public Order() {
     }
 
-    public Order(int order_id, int account_id, String order_date, String order_status, int total_price, String order_notes, int promotion_id) {
+    public Order(int order_id, int account_id, String order_date, String order_status, int total_price, String order_notes, int promotion_id, String payment_status) {
         this.order_id = order_id;
         this.account_id = account_id;
         this.order_date = order_date;
@@ -28,6 +29,7 @@ public class Order {
         this.total_price = total_price;
         this.order_notes = order_notes;
         this.promotion_id = promotion_id;
+        this.payment_status = payment_status;
     }
 
     public int getOrder_id() {
@@ -86,9 +88,18 @@ public class Order {
         this.promotion_id = promotion_id;
     }
 
+    public String getPayment_status() {
+        return payment_status;
+    }
+
+    public void setPayment_status(String payment_status) {
+        this.payment_status = payment_status;
+    }
+
     @Override
     public String toString() {
-        return "Order{" + "order_id=" + order_id + ", account_id=" + account_id + ", order_date=" + order_date + ", order_status=" + order_status + ", total_price=" + total_price + ", order_notes=" + order_notes + ", promotion_id=" + promotion_id + '}';
+        return "Order{" + "order_id=" + order_id + ", account_id=" + account_id + ", order_date=" + order_date + ", order_status=" + order_status + ", total_price=" + total_price + ", order_notes=" + order_notes + ", promotion_id=" + promotion_id + ", payment_status=" + payment_status + '}';
     }
+    
     
 }

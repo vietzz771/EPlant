@@ -701,13 +701,13 @@ public class DAO {
         return null;
     }
 
-    public void addOrder(Account c, Cart cart, String orderNotes) {
+    public void addOrder(Account c, Cart cart, String orderNotes, String paymentStatus) {
         LocalDate curDate = LocalDate.now();
         String date = curDate.toString();
         String orderStatus = "pending";
         try {
             // add order
-            String query = "insert into [Order](account_id, order_date, order_status, total_price, order_notes) values(?,?,?,?,?)";
+            String query = "insert into [Order](account_id, order_date, order_status, total_price, order_notes, payment_status) values(?,?,?,?,?,?)";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, c.getAccount_id());
@@ -715,6 +715,7 @@ public class DAO {
             ps.setString(3, orderStatus);
             ps.setInt(4, cart.getTotalMoney());
             ps.setString(5, orderNotes);
+            ps.setString(6, paymentStatus);
             ps.executeUpdate();
             // take the newly added order id 
             String query2 = "select top 1 order_id from [Order] order by order_id desc";
@@ -759,7 +760,8 @@ public class DAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getInt(7)
+                        rs.getInt(7),
+                        rs.getString(8)
                 );
                 list.add(o);
             }
@@ -784,7 +786,8 @@ public class DAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getInt(7)
+                        rs.getInt(7),
+                        rs.getString(8)
                 );
             }
         } catch (Exception e) {
@@ -809,7 +812,46 @@ public class DAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getInt(7)
+                        rs.getInt(7),
+                        rs.getString(8)
+                );
+                list.add(o);
+            }
+            return list;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return null;
+    }
+
+    public List<Order> getOrderByOrderStatusOfAccount(String status, Account a) {
+        try {
+            String query = "if ? like 'all'\n"
+                    + "select * from [Order]\n"
+                    + "where account_id = ?\n"
+                    + "order by order_id desc\n"
+                    + "else\n"
+                    + "select * from [Order]\n"
+                    + "where order_status = ?\n"
+                    + "and account_id = ?\n"
+                    + "order by order_id desc";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, status);
+            ps.setInt(2, a.getAccount_id());
+            ps.setString(3, status);
+            ps.setInt(4, a.getAccount_id());
+            rs = ps.executeQuery();
+            List<Order> list = new ArrayList<>();
+            while (rs.next()) {
+                Order o = new Order(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8)
                 );
                 list.add(o);
             }
@@ -822,7 +864,10 @@ public class DAO {
 
     public List<Order> getOrderByAccountId(Account a) {
         try {
-            String query = "select * from [Order] where account_id = ?";
+            String query = "select * from [Order]\n"
+                    + "where account_id = ?\n"
+                    + "and order_status != 'completed' and order_status != 'cancelled'\n"
+                    + "order by order_id desc";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, a.getAccount_id());
@@ -835,7 +880,8 @@ public class DAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getInt(7)
+                        rs.getInt(7),
+                        rs.getString(8)
                 );
                 list.add(o);
             }
@@ -899,6 +945,7 @@ public class DAO {
         }
         return null;
     }
+//For admin
 
     public void deleteOrder(String id) {
         try {
@@ -912,6 +959,20 @@ public class DAO {
             ps2.setString(1, id);
             ps.executeUpdate();
             ps2.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
+//   process order for user
+    public void processOrder(String id) {
+        try {
+            String query = "update [Order] set [order_status] = 'cancelled' where [order_id] = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+//            set gia tri 
+            ps.setString(1, id);
+            ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
@@ -1092,7 +1153,6 @@ public class DAO {
                         rs.getInt(10),
                         rs.getInt(11),
                         rs.getString(12)));
-
             }
         } catch (Exception e) {
         }
@@ -1159,12 +1219,12 @@ public class DAO {
     }
 
     public static void main(String[] args) throws Exception {
-
-        DAO dao = new DAO();
-        List<Product> list = dao.getTopProductByCID("1", "2");
-        for (Product o : list) {
-            System.out.println(o);
-        }
+//        Account a = new Account();
+//        DAO dao = new DAO();
+//        List<Order> list = dao.getOrderByAccountId(a);
+//        for (Order o : list) {
+//            System.out.println(o);
+//        }
 
         //---------//
 //        int count = dao.getTotalOrderInfo();

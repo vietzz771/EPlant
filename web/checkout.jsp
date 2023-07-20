@@ -68,6 +68,7 @@
                                 <h6>Subtotal</h6>
                                 <span>$ ${o.totalMoney}.00</span>
                             </div>
+                            <input type="hidden" name="totalMoney" value="${o.totalMoney}"/>
                             <div class="d-flex py-3 checkout-text align-items-center justify-content-between">
                                 <h6>Shipping</h6>
                                 <span>Free</span>
@@ -75,6 +76,20 @@
                             <div class="d-flex py-3 checkout-text align-items-center justify-content-between">
                                 <h6>Total</h6>
                                 <span class="total-text">$ ${o.totalMoney}.00</span>
+                            </div>
+                            <div class="py-3 checkout-text text-center text-black-50">
+                                <h6>Convert USD to VND: 1$ = 23500.00VND</h6>
+                            </div>
+                            <div class="d-flex py-3 checkout-text align-items-center justify-content-between">
+                                <h6>Payments method</h6>
+                                <label>
+                                    <input type="radio" name="opPay" value="COD" required checked/>
+                                    COD    				
+                                </label>
+                                <label>
+                                    <input type="radio" name="opPay" value="VNPAY" required/>
+                                    VNPAY    				
+                                </label>
                             </div>
                             <div class="text-center">
                                 <!--<a href="shop" class="cart-btn">-->

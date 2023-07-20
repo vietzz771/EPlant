@@ -48,15 +48,18 @@ public class LoginServlet extends HttpServlet {
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("account", acc);
-            session.setMaxInactiveInterval(12 * 60 * 60 * 365);
-
-            if (username.equals("admin")) {
+//            session.setMaxInactiveInterval(12 * 60 * 60 * 365);
+            String role = acc.getRole();
+            if (role.equals("admin")) {
                 response.sendRedirect("account");
                 return;
             }
-            String role = acc.getRole();
             if (role.equals("Gardener")) {
                 response.sendRedirect("AppointmentSchedule");
+                return;
+            }
+            if (role.equals("Staff")) {
+                response.sendRedirect("product");
                 return;
             }
             Cookie u = new Cookie("user", username);

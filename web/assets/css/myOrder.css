@@ -1,0 +1,15 @@
+.bg-pending {
+    background-color:#5783db !important;
+}
+.bg-shipping {
+    background-color: #a881af !important;
+}
+.bg-completed {
+    background-color:  #33b249 !important;
+}
+.bg-cancelled {
+    background-color: #DF4242 !important;
+}
+.o-status a:hover {
+    opacity: 0.7;
+}

@@ -61,11 +61,13 @@
                             <h2 class=" text-dark text-center">Hello ${sessionScope.account.user}</h2>
                         </c:if>
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="account">
-                                    <i class="bi bi-people"></i> Account Management
-                                </a>
-                            </li>
+                            <c:if test="${sessionScope.account.role == 'admin'}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="account">
+                                        <i class="bi bi-people"></i> Account Management
+                                    </a>
+                                </li>
+                            </c:if>
                             <li class="nav-item">
                                 <a class="nav-link " href="product">
                                     <i class="bi bi-shop"></i> Product Management
@@ -79,12 +81,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="Liststatistic">
                                     <i class="bi bi-bar-chart"></i> Statistic
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="bi bi-chat"></i> Message
-                                    <span class="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">6</span>
                                 </a>
                             </li>
                         </ul>
@@ -216,7 +212,8 @@
                                             <tr>
                                                 <th scope="col">Order</th>
                                                 <th scope="col">Date</th>
-                                                <th scope="col">Status</th>
+                                                <th scope="col">Order status</th>
+                                                <th scope="col">Payment status</th>
                                                 <th scope="col" class="text-end">Total</th>
                                             </tr>
                                         </thead>
@@ -257,7 +254,19 @@
                                                             </div>
                                                         </c:if>
                                                     </td>
-                                                    <td class= " align-middle text-end">
+                                                    <td class= "align-middle">
+                                                        <c:if test="${i.payment_status == 'Payment in cash'}">
+                                                            <div class="bg-secondary px-5 py-2 d-inline-block text-white rounded text-capitalize">
+                                                                ${i.payment_status}
+                                                            </div>
+                                                        </c:if>
+                                                        <c:if test="${i.payment_status == 'Already paid'}">
+                                                            <div class="border-danger bg-completed px-5 py-2 d-inline-block text-white rounded text-capitalize">
+                                                                ${i.payment_status}
+                                                            </div>
+                                                        </c:if>
+                                                    </td>
+                                                    <td class= "align-middle text-end">
                                                         $ ${i.total_price}.00
                                                     </td>
                                                 </tr>

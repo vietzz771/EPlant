@@ -168,6 +168,10 @@
         <servlet-name>AppointmentScheduleServlet</servlet-name>
         <servlet-class>Controller.AppointmentScheduleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CateMyOrder</servlet-name>
+        <servlet-class>Controller.CateMyOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -334,6 +338,10 @@
     <servlet-mapping>
         <servlet-name>AppointmentScheduleServlet</servlet-name>
         <url-pattern>/AppointmentSchedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CateMyOrder</servlet-name>
+        <url-pattern>/CateMyOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -63,11 +63,13 @@
                             <h2 class=" text-dark text-center">Hello ${sessionScope.account.user}</h2>
                         </c:if>
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="account">
-                                    <i class="bi bi-people"></i> Account Management
-                                </a>
-                            </li>
+                            <c:if test="${sessionScope.account.role == 'admin'}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="account">
+                                        <i class="bi bi-people"></i> Account Management
+                                    </a>
+                                </li>
+                            </c:if>
                             <li class="nav-item">
                                 <a class="nav-link active" href="product">
                                     <i class="bi bi-shop"></i> Product Management
@@ -81,12 +83,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="Liststatistic">
                                     <i class="bi bi-bar-chart"></i> Statistic
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="bi bi-chat"></i> Message
-                                    <span class="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">6</span>
                                 </a>
                             </li>
                         </ul>

@@ -16,14 +16,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.HashSet;
 import java.util.List;
 
 /**
  *
  * @author Hades
  */
-public class RenderOrderServlet extends HttpServlet {
+public class CateMyOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +41,10 @@ public class RenderOrderServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RenderOrderServlet</title>");
+            out.println("<title>Servlet CateMyOrder</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RenderOrderServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CateMyOrder at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,19 +63,19 @@ public class RenderOrderServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-//        String status = request.getParameter("stt");
+        String status = request.getParameter("stt");
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("account");
         DAO dao = new DAO();
-//        List<Order> list = dao.getOrderByOrderStatusOfAccount(status, a);
+        List<Order> list = dao.getOrderByOrderStatusOfAccount(status, a);
         List<Order> o = dao.getOrderByAccountId(a);
         List<OrderDetail> od = dao.getOrderDetailByAccountId(a);
         List<Product> p = dao.getListProduct();
         request.setAttribute("order", o);
-//        request.setAttribute("order", list);
+        request.setAttribute("order", list);
         request.setAttribute("orderDetail", od);
         request.setAttribute("product", p);
-//        request.setAttribute("status", status);
+        request.setAttribute("status", status);
         request.getRequestDispatcher("myOrders.jsp").forward(request, response);
     }
 
@@ -91,7 +90,8 @@ public class RenderOrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+
     }
 
     /**

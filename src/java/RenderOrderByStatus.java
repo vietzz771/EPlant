@@ -68,7 +68,6 @@ public class RenderOrderByStatus extends HttpServlet {
         request.setAttribute("status", status);
         request.getRequestDispatcher("listOrder.jsp").forward(request, response);
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *

@@ -49,7 +49,6 @@ public class ProcessOrder extends HttpServlet {
             out.println("</html>");
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -66,9 +65,7 @@ public class ProcessOrder extends HttpServlet {
 
         DAO dao = new DAO();
         String id = request.getParameter("oid");
-        dao.deleteOrder(id);
-        
-        
+        dao.processOrder(id);
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("account");
         List<Order> o = dao.getOrderByAccountId(a);
