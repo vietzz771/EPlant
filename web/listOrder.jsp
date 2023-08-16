@@ -224,11 +224,16 @@
                                                         <c:if test="${i.account_id == a.account_id}">
                                                             <td class="align-middle">
                                                                 <a href="editOrder?oid=${i.order_id}&aid=${i.account_id}">
-                                                                    #${i.order_id} ${a.user}
+                                                                    <c:if test="${a.user ==''}">
+                                                                        #${i.order_id} ${a.email}
+                                                                    </c:if>
+                                                                    <c:if test="${a.user != ''}">
+                                                                        #${i.order_id} ${a.user}
+                                                                    </c:if>    
                                                                 </a>
                                                             </td>
                                                         </c:if>
-                                                    </c:forEach> 
+                                                    </c:forEach>
                                                     <td class= "align-middle">
                                                         ${i.order_date}
                                                     </td>

@@ -108,7 +108,7 @@
                                             <th scope="col">Care Package</th>
                                             <th scope="col">Type of Tree</th>
                                             <th scope="col">Start date</th>
-                                            <th scope="col">Start time</th>
+                                            <th scope="col">End date</th>
                                             <th scope="col">Price</th>
                                             <th scope="col">Note</th>
                                             <th scope="col">Status</th>
@@ -146,7 +146,7 @@
                                                         ${b.appointment_start_date}
                                                     </td>
                                                     <td class= "align-middle">
-                                                        ${b.appointment_start_time}.00h
+                                                        ${b.appointment_end_date}
                                                     </td>
                                                     <c:forEach items="${listCarePackage}" var="c">
                                                         <c:if test="${c.care_package_id == b.care_package_id}">

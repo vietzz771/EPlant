@@ -37,7 +37,7 @@
                             Booking Garderner
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="bookingDropdown">
-                            <li><a class="dropdown-item" href="/Eplant/bookingS" onclick="closeDropdown()">Booking Now</a></li>
+                            <li><a class="dropdown-item" href="/Eplant/booking_1.jsp" onclick="closeDropdown()">Booking Now</a></li>
                             <li><a class="dropdown-item" href="/Eplant/mybooking" onclick="closeDropdown()">My Booking</a></li>
                         </ul>
                     </li>

@@ -36,6 +36,32 @@ public class DAO {
     ResultSet rs;
     Connection con;
 
+    public Account LoginGoogle(String email) {
+        String query = "select * from  Account where [email] = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareCall(query);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10));
+
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
     public Account Login(String user, String pass) {
         String query = "select * from  Account where [user] = ? and password = ?";
         try {
@@ -77,6 +103,31 @@ public class DAO {
         }
     }
 
+    public Account CheckGoogleAccountExist(String email) {
+        String query = "select * from  Account where [email] = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareCall(query);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10));
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
     public Account CheckAccountExist(String user) {
         String query = "select * from  Account where [user] = ?";
         try {
@@ -116,7 +167,6 @@ public class DAO {
             ps.setString(7, role);
             ps.setString(8, birthday);
             ps.setString(9, sex);
-
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -129,6 +179,22 @@ public class DAO {
             ps = con.prepareCall(query);
             ps.setString(1, status);
             ps.setString(2, oid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            // Xử lý lỗi
+        }
+    }
+
+    public void UpdateProfileCheckout(String full_name, String phone, String email, String address) {
+        String query = "UPDATE Account SET full_name=?, phone=?, email=?, address=? WHERE [email]=?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareCall(query);
+            ps.setString(1, full_name);
+            ps.setString(2, phone);
+            ps.setString(3, email);
+            ps.setString(4, address);
+            ps.setString(5, email);
             ps.executeUpdate();
         } catch (Exception e) {
             // Xử lý lỗi
@@ -1085,11 +1151,30 @@ public class DAO {
         return listStaff;
     }
 
+    public List<Staff> getStaffInfoByID(int id) {
+        List<Staff> listStaff = new ArrayList<>();
+        String query = "SELECT account_id, full_name, phone FROM Account WHERE role = 'Gardener' and account_id = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listStaff.add(new Staff(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3)));
+
+            }
+        } catch (Exception e) {
+        }
+        return listStaff;
+    }
 //================================================================//
+
     public void addBooking(Booking booking) {
         try {
-            String query = "insert into [AppointmentSchedule]([user_id],  [staff_id] ,[appointment_start_time], [type_of_tree],[care_package_id],[appointment_start_date],[appointment_note],[status])\n"
-                    + "Values (?,?,?,?,?,?,?,?);";
+            String query = "insert into [AppointmentSchedule]([user_id],  [staff_id] ,[appointment_start_time], [type_of_tree],[care_package_id],[appointment_start_date],[appointment_note],[status], [appointment_end_date])\n"
+                    + "Values (?,?,?,?,?,?,?,?,?);";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
 //            set gia tri 
@@ -1101,6 +1186,7 @@ public class DAO {
             ps.setDate(6, booking.getAppointment_start_date());
             ps.setString(7, booking.getAppointment_note());
             ps.setString(8, booking.getStatus());
+            ps.setDate(9, booking.getAppoinment_end_date());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -1126,11 +1212,76 @@ public class DAO {
         }
         return listCarePackage;
     }
+
+    //
+    public List<MyBooking> getListBookingStatus() {
+        List<MyBooking> listMyBooking = new ArrayList<>();
+        String query = "SELECT a.[appointmentSchedule_id],c.package_name AS care_package_name, a.[user_id], a.type_of_tree, a.appointment_start_date, a.appointment_start_time, ac.full_name AS staff_name, ac.phone AS staff_phone ,a.[status], a.[staff_id], a.care_package_id, a.[appointment_note], a.appointment_end_date\n"
+                + "FROM [AppointmentSchedule] a \n"
+                + "INNER JOIN [CarePackage] c ON a.care_package_id = c.care_package_id \n"
+                + "INNER JOIN [Account] ac ON a.staff_id = ac.account_id\n"
+                + "where status = 'Taking Care'";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listMyBooking.add(new MyBooking(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getDate(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getInt(10),
+                        rs.getInt(11),
+                        rs.getString(12),
+                        rs.getDate(13)));
+            }
+        } catch (Exception e) {
+        }
+        return listMyBooking;
+    }
+
+    //============================================
+    public List<MyBooking> getListBooking() {
+        List<MyBooking> listMyBooking = new ArrayList<>();
+        String query = "SELECT a.[appointmentSchedule_id],c.package_name AS care_package_name, a.[user_id], a.type_of_tree, a.appointment_start_date, a.appointment_start_time, ac.full_name AS staff_name, ac.phone AS staff_phone ,a.[status], a.[staff_id], a.care_package_id, a.[appointment_note], a.appointment_end_date\n"
+                + "FROM [AppointmentSchedule] a \n"
+                + "INNER JOIN [CarePackage] c ON a.care_package_id = c.care_package_id \n"
+                + "INNER JOIN [Account] ac ON a.staff_id = ac.account_id";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listMyBooking.add(new MyBooking(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getDate(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getInt(10),
+                        rs.getInt(11),
+                        rs.getString(12),
+                        rs.getDate(13)));
+            }
+        } catch (Exception e) {
+        }
+        return listMyBooking;
+    }
     //================================================================//
 
     public List<MyBooking> getMyBooking() {
         List<MyBooking> listMyBooking = new ArrayList<>();
-        String query = "SELECT a.[appointmentSchedule_id],c.package_name AS care_package_name, a.[user_id], a.type_of_tree, a.appointment_start_date, a.appointment_start_time, ac.full_name AS staff_name, ac.phone AS staff_phone ,a.[status], a.[staff_id], a.care_package_id, a.[appointment_note] "
+        String query = "SELECT a.[appointmentSchedule_id],c.package_name AS care_package_name, a.[user_id], a.type_of_tree, a.appointment_start_date, a.appointment_start_time, ac.full_name AS staff_name, ac.phone AS staff_phone ,a.[status], a.[staff_id], a.care_package_id, a.[appointment_note], a.appointment_end_date "
                 + "FROM [AppointmentSchedule] a "
                 + "INNER JOIN [CarePackage] c ON a.care_package_id = c.care_package_id "
                 + "INNER JOIN [Account] ac ON a.staff_id = ac.account_id "
@@ -1152,7 +1303,8 @@ public class DAO {
                         rs.getString(9),
                         rs.getInt(10),
                         rs.getInt(11),
-                        rs.getString(12)));
+                        rs.getString(12),
+                        rs.getDate(13)));
             }
         } catch (Exception e) {
         }

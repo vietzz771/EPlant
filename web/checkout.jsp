@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Check out</title>
     </head>
     <body>
         <%@ include file="/includes/start.jsp" %>
@@ -27,19 +27,19 @@
                             <h3>Billing Details</h3>
                             <div class="group-input py-2 mt-4">
                                 <span class="fw-bold">Full Name <abbr class="required" title="required">*</abbr></span>
-                                <input type="text" value="${sessionScope.account.full_name}" class="w-100 my-2">
+                                <input name="name" type="text" value="${sessionScope.account.full_name}" class="w-100 my-2" required maxlength="100">
                             </div>
                             <div class="group-input py-2">
                                 <span class="fw-bold">Street address <abbr class="required" title="required">*</abbr></span>
-                                <input type="text" value="${sessionScope.account.address}" class="w-100 my-2">
+                                <input name="address" type="text" value="${sessionScope.account.address}" class="w-100 my-2" required>
                             </div>
                             <div class="group-input py-2">
                                 <span class="fw-bold">Phone <abbr class="required" title="required">*</abbr></span>
-                                <input type="text" value="${sessionScope.account.phone}" class="w-100 my-2">
+                                <input name="phone" type="text" value="${sessionScope.account.phone}" class="w-100 my-2" required maxlength="10" pattern="[0-9]{10}" title="Must constrain at 10 numbers" onkeyup="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                             <div class="group-input py-2">
                                 <span class="fw-bold">Email address <abbr class="required" title="required">*</abbr></span>
-                                <input type="text" value="${sessionScope.account.email}" class="w-100 my-2">
+                                <input name="email" type="text" value="${sessionScope.account.email}" class="w-100 my-2" required maxlength="50" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$">
                             </div>
                             <div class="group-input py-2">
                                 <span class="fw-bold">Order notes (optional)

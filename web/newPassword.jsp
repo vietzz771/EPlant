@@ -44,8 +44,8 @@
                                     <!-- User Name Input -->
                                     <div class="form-group row justify-content-center px-3">
                                         <div class="col-9 px-0">
-                                            <input type="text" name="password" placeholder="&#xf084; &nbsp; New Password"
-                                                   class="form-control border-info placeicon">
+                                            <input type="password" name="password" placeholder="&#xf084; &nbsp; New Password"
+                                                   class="form-control border-info placeicon" autofocus required maxlength="50" pattern="(?=.*\d)(?=.*[a-z]).{8,}" title="Must contain at least one number and at least 8 or more characters">
                                         </div>
                                     </div>
                                     <!-- Password Input -->
@@ -53,7 +53,9 @@
                                         <div class="col-9 px-0">
                                             <input type="password" name="confPassword"
                                                    placeholder="&#xf084; &nbsp; Confirm New Password"
-                                                   class="form-control border-info placeicon">
+                                                   class="form-control border-info placeicon"
+                                                   required
+                                                   >
                                         </div>
                                     </div>
 
@@ -77,7 +79,7 @@
                                 <div class="pt-2">
                                     <div class="row justify-content-center">
                                         <h5>
-                                            Don't have an Account?<span><a href="#"
+                                            Don't have an Account?<span><a href="register"
                                                                            class="text-danger"> Register Now!</a></span>
                                         </h5>
                                     </div>

@@ -41,12 +41,12 @@ public class LoginServlet extends HttpServlet {
         String remember = request.getParameter("remember");
         DAO dao = new DAO();
         Account acc = dao.Login(username, password);
+        HttpSession session = request.getSession();
         if (acc == null) {
             request.setAttribute("username", username);
             request.setAttribute("mess", "Wrong username or password!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            HttpSession session = request.getSession();
             session.setAttribute("account", acc);
 //            session.setMaxInactiveInterval(12 * 60 * 60 * 365);
             String role = acc.getRole();

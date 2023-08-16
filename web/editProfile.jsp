@@ -61,6 +61,13 @@
                                         <tr>
                                             <th width="30%">Gender</th>
                                             <td>
+                                                <c:if test="${sessionScope.account.sex == ''}">
+                                                    <select class="" name="sex" id="sex">
+                                                        <option value="Others" selected>Others</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                    </select>
+                                                </c:if>
                                                 <c:if test="${sessionScope.account.sex == 'Others'}">
                                                     <select class="" name="sex" id="sex">
                                                         <option value="Others" selected>Others</option>

@@ -1,4 +1,6 @@
 
+import Entity.Account;
+import dao.DAO;
 import jakarta.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.util.Properties;
@@ -27,17 +29,17 @@ public class ForgotPassword extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String email = request.getParameter("email");
         RequestDispatcher dispatcher = null;
         int otpvalue = 0;
         HttpSession mySession = request.getSession();
-
-        if (email != null || !email.equals("")) {
+        String username = (String)mySession.getAttribute("usernameForgot");
+        DAO dao = new DAO();
+        Account acc = (Account) dao.CheckAccountExist(username);
+        if (email.equals(acc.getEmail())){
             // sending otp
             Random rand = new Random();
             otpvalue = rand.nextInt(1255650);
-
             String to = email;// change accordingly
             // Get the session object
             Properties props = new Properties();
@@ -74,6 +76,9 @@ public class ForgotPassword extends HttpServlet {
             mySession.setAttribute("email", email);
             dispatcher.forward(request, response);
             //request.setAttribute("status", "success");
+        }else {
+            request.setAttribute("mess", "Email does fit with email of username!");
+            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
         }
 
     }

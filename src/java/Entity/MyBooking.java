@@ -11,8 +11,9 @@ import java.sql.Date;
  * @author DELL
  */
 public class MyBooking {
+
     private int appointmentSchedule_id;
-        private String care_package_name;
+    private String care_package_name;
     private int user_id;
     private String type_of_tree;
     private Date appointment_start_date;
@@ -20,9 +21,37 @@ public class MyBooking {
     private String staff_name;
     private String staff_phone;
     private String status;
-private int staff_id;
-private int care_package_id;
-private String appointment_note;
+    private int staff_id;
+    private int care_package_id;
+    private String appointment_note;
+    private Date appointment_end_date;
+
+    public MyBooking() {
+    }
+
+    public MyBooking(int appointmentSchedule_id, String care_package_name, int user_id, String type_of_tree, Date appointment_start_date, String appointment_start_time, String staff_name, String staff_phone, String status, int staff_id, int care_package_id, String appointment_note, Date appointment_end_date) {
+        this.appointmentSchedule_id = appointmentSchedule_id;
+        this.care_package_name = care_package_name;
+        this.user_id = user_id;
+        this.type_of_tree = type_of_tree;
+        this.appointment_start_date = appointment_start_date;
+        this.appointment_start_time = appointment_start_time;
+        this.staff_name = staff_name;
+        this.staff_phone = staff_phone;
+        this.status = status;
+        this.staff_id = staff_id;
+        this.care_package_id = care_package_id;
+        this.appointment_note = appointment_note;
+        this.appointment_end_date = appointment_end_date;
+    }
+
+    public int getAppointmentSchedule_id() {
+        return appointmentSchedule_id;
+    }
+
+    public void setAppointmentSchedule_id(int appointmentSchedule_id) {
+        this.appointmentSchedule_id = appointmentSchedule_id;
+    }
 
     public String getCare_package_name() {
         return care_package_name;
@@ -30,6 +59,14 @@ private String appointment_note;
 
     public void setCare_package_name(String care_package_name) {
         this.care_package_name = care_package_name;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getType_of_tree() {
@@ -47,8 +84,6 @@ private String appointment_note;
     public void setAppointment_start_date(Date appointment_start_date) {
         this.appointment_start_date = appointment_start_date;
     }
-
-
 
     public String getAppointment_start_time() {
         return appointment_start_time;
@@ -72,22 +107,6 @@ private String appointment_note;
 
     public void setStaff_phone(String staff_phone) {
         this.staff_phone = staff_phone;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public int getAppointmentSchedule_id() {
-        return appointmentSchedule_id;
-    }
-
-    public void setAppointmentSchedule_id(int appointmentSchedule_id) {
-        this.appointmentSchedule_id = appointmentSchedule_id;
     }
 
     public String getStatus() {
@@ -122,6 +141,16 @@ private String appointment_note;
         this.appointment_note = appointment_note;
     }
 
+    public Date getAppointment_end_date() {
+        return appointment_end_date;
+    }
+
+    public void setAppointment_end_date(Date appointment_end_date) {
+        this.appointment_end_date = appointment_end_date;
+    }
+    
+    
+
     public MyBooking(int appointmentSchedule_id, String care_package_name, int user_id, String type_of_tree, Date appointment_start_date, String appointment_start_time, String staff_name, String staff_phone, String status, int staff_id, int care_package_id, String appointment_note) {
         this.appointmentSchedule_id = appointmentSchedule_id;
         this.care_package_name = care_package_name;
@@ -143,17 +172,9 @@ private String appointment_note;
 
     @Override
     public String toString() {
-        return "MyBooking{" + "appointmentSchedule_id=" + appointmentSchedule_id + ", care_package_name=" + care_package_name + ", user_id=" + user_id + ", type_of_tree=" + type_of_tree + ", appointment_start_date=" + appointment_start_date + ", appointment_start_time=" + appointment_start_time + ", staff_name=" + staff_name + ", staff_phone=" + staff_phone + ", status=" + status + ", staff_id=" + staff_id + ", care_package_id=" + care_package_id + ", appointment_note=" + appointment_note + '}';
+        return "MyBooking{" + "appointmentSchedule_id=" + appointmentSchedule_id + ", care_package_name=" + care_package_name + ", user_id=" + user_id + ", type_of_tree=" + type_of_tree + ", appointment_start_date=" + appointment_start_date + ", appointment_start_time=" + appointment_start_time + ", staff_name=" + staff_name + ", staff_phone=" + staff_phone + ", status=" + status + ", staff_id=" + staff_id + ", care_package_id=" + care_package_id + ", appointment_note=" + appointment_note + ", appointment_end_date=" + appointment_end_date + '}';
     }
 
-
-
-
-
-
-
-
-
-
+   
 
 }

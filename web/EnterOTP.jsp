@@ -49,7 +49,7 @@ if(request.getAttribute("message")!=null)
                                                 <span class="input-group-addon"><i
                                                         class="glyphicon glyphicon-envelope color-blue"></i></span> <input
                                                     id="opt" name="otp" placeholder="Enter OTP"
-                                                    class="form-control" type="text" required="required">
+                                                    class="form-control" type="text" required="required" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -61,7 +61,6 @@ if(request.getAttribute("message")!=null)
                                         <input type="hidden" class="hide" name="token" id="token"
                                                value="">
                                     </form>
-
                                 </div>
                             </div>
                         </div>

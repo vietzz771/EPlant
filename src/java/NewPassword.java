@@ -24,13 +24,11 @@ public class NewPassword extends HttpServlet {
         String newPassword = request.getParameter("password");
         String confPassword = request.getParameter("confPassword");
 
-        if (newPassword != null && confPassword != null && newPassword.equals(confPassword)) {
+        if (newPassword.equals(confPassword)) {
             String email = (String) session.getAttribute("email");
-
             // Call the DAO method to update password
             DAO pd = new DAO();
             pd.UpdatePassword(newPassword, email);
-
             request.setAttribute("status", "resetSuccess");
         } else {
             request.setAttribute("status", "resetFailed");

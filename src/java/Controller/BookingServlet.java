@@ -10,6 +10,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  *
@@ -73,7 +76,9 @@ public class BookingServlet extends HttpServlet {
         int staffId = Integer.parseInt(request.getParameter("staff_id"));
         String typeOfTree = request.getParameter("type_of_tree");
         String appointmentStartTime = request.getParameter("appointment_start_time");
-        String appointmentStartDate = request.getParameter("appointment_date");
+//        String appointmentStartDate = request.getParameter("appointment_date");
+        HttpSession session1 = request.getSession();
+        String appointmentStartDate = (String) session1.getAttribute("startDate");
         String appointmentNote = request.getParameter("appointment_note");
         String care_package_id = request.getParameter("care_package_id");
         String status = request.getParameter("status");
@@ -89,6 +94,26 @@ public class BookingServlet extends HttpServlet {
         booking.setAppointment_start_date(sqlDate);
         booking.setAppointment_note(appointmentNote);
         booking.setStatus(status);
+        // get end-day
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar endDate = Calendar.getInstance();
+        endDate.setTime(sqlDate);
+        if (Integer.parseInt(care_package_id) == 1) {
+            endDate.add(Calendar.DATE, 1);
+            LocalDate date2 = LocalDate.parse(dateFormat.format(endDate.getTime()));
+            Date endDatef = Date.valueOf(date2);
+            booking.setAppoinment_end_date(endDatef);
+        } else if (Integer.parseInt(care_package_id) == 2) {
+            endDate.add(Calendar.DATE, 7);
+            LocalDate date2 = LocalDate.parse(dateFormat.format(endDate.getTime()));
+            Date endDatef = Date.valueOf(date2);
+            booking.setAppoinment_end_date(endDatef);
+        } else {
+            endDate.add(Calendar.MONTH, 1);
+            LocalDate date2 = LocalDate.parse(dateFormat.format(endDate.getTime()));
+            Date endDatef = Date.valueOf(date2);
+            booking.setAppoinment_end_date(endDatef);
+        }
         dao.addBooking(booking);
         response.sendRedirect("BookingReceived.jsp");
     }

@@ -62,24 +62,24 @@
                             to secure your password!</p>
                         <ol class="list-unstyled">
                             <li><span class="text-primary text-medium">1. </span>Enter
-                                your user name.</li>
+                                your user name below.</li>
                             <li><span class="text-primary text-medium">2. </span>Enter
-                                your email address below.</li>
+                                your email address.</li>
                             <li><span class="text-primary text-medium">3. </span>Our
                                 system will send you an OTP to your email.</li>
                             <li><span class="text-primary text-medium">4. </span>Enter the OTP on the 
                                 next page.</li>
                         </ol>
                     </div>
-                    <form class="card mt-4" action="forgotPassword" method="POST">
+                    <form class="card mt-4" action="Forgot" method="POST">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="email-for-pass">Enter your email address</label>
+                                <label for="email-for-pass">Enter your user name</label>
                                 <c:if test="${mess != null}">
                                     <p class="text-danger">${mess}</p>
                                 </c:if>
-                                <input class="form-control" type="text" name="email" id="email-for-pass" required="" autofocus required maxlength="50" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$">
-                                <small class="form-text text-muted">Enter the registered email address. Then we'll email a OTP to this address.</small>
+                                <input class="form-control" type="text" name="username" id="username-for-pass" required="" autofocus required pattern="([^\s][A-z0-9]+)" title="Not include spaces">
+                                <small class="form-text text-muted">Enter the registered user name. Then next steps, enter correctly your email address, we'll email a OTP to this address.</small>
                             </div>
                         </div>
                         <div class="card-footer">

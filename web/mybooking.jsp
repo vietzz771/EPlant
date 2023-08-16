@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>My Orders</title> <style>
+        <title>My Bookings</title> <style>
             .order-item p {
                 margin-left : 10px;
             }
@@ -51,7 +51,6 @@
                                         <p><strong>Start time :</strong> ${o.appointment_start_time}.00 h</p>
                                         <p><strong>Gardener Name :</strong> ${o.staff_name}</p>
                                         <p><strong>Phone :</strong> ${o.staff_phone}</p>
-
                                     </div>
                                 </div>
 

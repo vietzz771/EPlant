@@ -102,6 +102,12 @@ public class CheckoutServlet extends HttpServlet {
         session.setAttribute("totalMoney", totalMoney);
         String orderNotes = request.getParameter("orderNotes");
         session.setAttribute("orderNotes", orderNotes);
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
+        String email = request.getParameter("email");
+        DAO dao = new DAO();
+        dao.UpdateProfileCheckout(name, phone, email, address);
         Account a = (Account) session.getAttribute("account");
         if (opPay.equals("VNPAY")) {
             if (a == null) {
@@ -109,9 +115,7 @@ public class CheckoutServlet extends HttpServlet {
             } else {
                 response.sendRedirect("ajax");
             }
-
         } else {
-            DAO dao = new DAO();
             List<Product> list = dao.getListProduct();
             Cookie[] arr = request.getCookies();
             String txt = "";

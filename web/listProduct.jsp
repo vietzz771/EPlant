@@ -102,94 +102,222 @@
                     </div>
                 </div>
             </nav>
-            <!-- Main content -->
-            <div class="h-screen flex-grow-1 overflow-y-lg-auto">
-                <!-- Main -->
-                <main class="py-6 bg-surface-secondary">
-                    <div class="container-fluid">
-                        <div class="card shadow border-0 mb-7">
-                            <div class="card-header">
-                                <h5 class="mb-0">List Product</h5>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover table-nowrap">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Image</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Category</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <form action="add-product" method="post">
-                                        <tr>
-                                            <td>
-                                                <input name="img" type="text" placeholder="Enter image link" required>
-                                            </td>
-                                            <td>
-                                                <input name="name" type="text" placeholder="Enter name" required>
-                                            </td>
-                                            <td>
-                                                <input name="price" type="number" placeholder="Enter price" required>
-                                            </td>
-                                            <td>
-                                                <input name="category" type="number" placeholder="Enter category" required>
-                                            </td>
-                                            <td>
-                                                <input name="quantity" type="number" placeholder="Enter quantity" required>
-                                            </td>
-                                            <td>
-                                                <input name="des" type="text" placeholder="Enter description" required>
-                                            </td>
-                                            <td class="text-end">
-                                                <input type="submit" value="Add Product">
-                                            </td>
-                                        </tr>
-                                    </form>
-                                    <c:forEach items="${list}" var="p">
-                                        <tr>
-                                            <td>
-                                                <img alt="..." src="${p.image}" class="avatar avatar-sm rounded-circle me-2">
-                                            </td>
-                                            <td class= "align-middle">
-                                                ${p.name}
-                                            </td>
-                                            <td class= "align-middle">
-                                                $ ${p.price}.00
-                                            </td>
-                                            <td class= "align-middle">
-                                                <c:forEach items="${listCate}" var="c">
-                                                    <c:if test="${p.cid == c.cid}">
-                                                        ${c.cname}
-                                                    </c:if>
-                                                </c:forEach>    
-                                            </td>
-                                            <td class= "align-middle">
-                                                ${p.quantity}
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td class="text-end">
-                                                <a href="edit?id=${p.productID}">Edit</a>
-                                                <a href="delete-product?id=${p.productID}">
-                                                    <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
+            <head>
+                <title>WebSocket Chat</title>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+                <style>
+                    /* CSS cho icon chat */
+                    .chat-icon {
+                        position: fixed;
+                        bottom: 20px;
+                        right: 20px;
+                        width: 50px;
+                        height: 50px;
+                        background-color: #007bff;
+                        color: #fff;
+                        border-radius: 50%;
+                        text-align: center;
+                        line-height: 50px;
+                        cursor: pointer;
+                        z-index: 9999;
+                    }
+
+                    /* CSS cho khung chat */
+                    .chat-box {
+                        position: fixed;
+                        bottom: 80px;
+                        right: 20px;
+                        width: 300px;
+                        height: 400px;
+                        background-color: #f1f1f1;
+                        border: 1px solid #ccc;
+                        border-radius: 8px;
+                        display: none;
+                        z-index: 9999;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                    }
+
+                    .chat-box-header {
+                        background-color: #007bff;
+                        color: #fff;
+                        padding: 10px;
+                        border-top-left-radius: 8px;
+                        border-top-right-radius: 8px;
+                    }
+
+                    .chat-box-content {
+                        padding: 10px;
+                        height: 300px;
+                        overflow-y: auto;
+                    }
+
+                    .chat-box-input {
+                        display: flex;
+                        align-items: center;
+                        border-top: 1px solid #ccc;
+                        padding: 10px;
+                    }
+
+                    .chat-box-input input[type="text"] {
+                        flex: 1;
+                        padding: 5px;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                    }
+
+                    .chat-box-input button {
+                        margin-left: 10px;
+                        background-color: #007bff;
+                        color: #fff;
+                        padding: 6px 12px;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="chat-icon" onclick="toggleChatBox()">
+                    <i class="fas fa-comments"></i>
+                </div>
+
+                <!-- Khung chat (ẩn ban đầu) -->
+                <div id="chatBox" class="chat-box" style="display: none;">
+                    <div class="chat-box-header">Tư vấn khách hàng</div>
+                    <div class="chat-box-content" id="chatOutput"></div>
+                    <div class="chat-box-input">
+                        <input type="text" id="messageInput" placeholder="Nhập tin nhắn..." />
+                        <button onclick="sendMessage()">Gửi</button>
+                    </div>
+                </div>
+
+                <script>
+                    // Lấy tham chiếu đến các phần tử HTML của khung chat và input tin nhắn
+                    var chatBox = document.getElementById("chatBox");
+                    var messageInput = document.getElementById("messageInput");
+
+                    function toggleChatBox() {
+                        chatBox.style.display = (chatBox.style.display === "none") ? "block" : "none";
+                        if (chatBox.style.display === "block") {
+                            // Đặt trạng thái focus vào input tin nhắn khi khung chat hiển thị
+                            messageInput.focus();
+                        }
+                    }
+
+                    var socket = new WebSocket("ws://localhost:8080/Eplant/chatRoomServer"); // Thay 'your-app-name' bằng tên ứng dụng của bạn
+
+                    socket.onopen = function (event) {
+                        console.log("WebSocket is connected.");
+                        var fullName = "${sessionScope.account.full_name}";
+                        socket.send(fullName);
+                    };
+
+                    socket.onmessage = function (event) {
+                        var chatOutput = document.getElementById("chatOutput");
+                        chatOutput.innerHTML += "<h6>" + event.data + "</h6>";
+                        // Cuộn xuống dòng cuối cùng để hiển thị tin nhắn mới nhất
+                        chatOutput.scrollTop = chatOutput.scrollHeight;
+                    };
+
+                    socket.onclose = function (event) {
+                        console.log("WebSocket is closed.");
+                    };
+
+                    function sendMessage() {
+                        var messageInput = document.getElementById("messageInput");
+                        var message = messageInput.value;
+                        socket.send(message);
+                        messageInput.value = "";
+                    }
+                </script>
+                <!-- Main content -->
+                <div class="h-screen flex-grow-1 overflow-y-lg-auto">
+                    <!-- Main -->
+                    <main class="py-6 bg-surface-secondary">
+                        <div class="container-fluid">
+                            <div class="card shadow border-0 mb-7">
+                                <div class="card-header">
+                                    <h5 class="mb-0">List Product</h5>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-nowrap">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Image</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Category</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <form action="add-product" method="post">
+                                            <tr>
+                                                <td>
+                                                    <input name="img" type="text" placeholder="Enter image link" required>
+                                                </td>
+                                                <td>
+                                                    <input name="name" type="text" placeholder="Enter name" required>
+                                                </td>
+                                                <td>
+                                                    <input name="price" type="number" placeholder="Enter price" required>
+                                                </td>
+                                                <td>
+                                                    <input name="category" type="number" placeholder="Enter category" required>
+                                                </td>
+                                                <td>
+                                                    <input name="quantity" type="number" placeholder="Enter quantity" required>
+                                                </td>
+                                                <td>
+                                                    <input name="des" type="text" placeholder="Enter description" required>
+                                                </td>
+                                                <td class="text-end">
+                                                    <input type="submit" value="Add Product">
+                                                </td>
+                                            </tr>
+                                        </form>
+                                        <c:forEach items="${list}" var="p">
+                                            <tr>
+                                                <td>
+                                                    <img alt="..." src="${p.image}" class="avatar avatar-sm rounded-circle me-2">
+                                                </td>
+                                                <td class= "align-middle">
+                                                    ${p.name}
+                                                </td>
+                                                <td class= "align-middle">
+                                                    $ ${p.price}.00
+                                                </td>
+                                                <td class= "align-middle">
+                                                    <c:forEach items="${listCate}" var="c">
+                                                        <c:if test="${p.cid == c.cid}">
+                                                            ${c.cname}
+                                                        </c:if>
+                                                    </c:forEach>    
+                                                </td>
+                                                <td class= "align-middle">
+                                                    ${p.quantity}
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td class="text-end">
+                                                    <a href="edit?id=${p.productID}">Edit</a>
+                                                    <a href="delete-product?id=${p.productID}">
+                                                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </main>
-            </div>
+                    </main>
+                </div>
         </div>    
     </body>
 </html>
